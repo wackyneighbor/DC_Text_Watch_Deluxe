@@ -80,7 +80,9 @@ Layer *scroll;
 PropertyAnimation *scroll_down;
 PropertyAnimation *scroll_up;
 
-static bool PoppedDown;
+static bool PoppedDownNow;
+static bool PoppedDownAtInit;
+
 
 // Global variable declarations
 static float localLat_deg;		// Declare the global variable of the last known latitude
@@ -388,9 +390,14 @@ void makeScrollDown(){
 	GRect from = layer_get_bounds((Layer *)scroll);
 	GRect to = layer_get_bounds((Layer *)scroll);
 
-	from.origin.y = 0;
-	to.origin.y = 21;
-
+	if(PoppedDownAtInit == true){
+		from.origin.y = -21;
+		to.origin.y = 0;
+	} else {
+		from.origin.y = 0;
+		to.origin.y = 21;
+	}
+	
 	scroll_down = property_animation_create_layer_frame((Layer *)scroll, &from, &to);
 	animation_set_duration(property_animation_get_animation(scroll_down), 800);
 	animation_set_delay(property_animation_get_animation(scroll_down), 600);
@@ -422,7 +429,7 @@ void makeScrollUp(struct tm *t){
 	animation_schedule(property_animation_get_animation(scroll_down));
 
 	// reset PoppedDown indicator
-	PoppedDown = false;
+	PoppedDownNow = false;
 }
 
 // Configure the first line of text
@@ -477,7 +484,7 @@ static void time_timer_tick(struct tm *t, TimeUnits units_changed) {
 	// Consider that there are fewer times where there are only 2 lines when "Oh" option is activated
 	if (TimeRenderOh == false){
 		if(t->tm_min == 0 || t->tm_min == 15 || t->tm_min == 20 || t->tm_min == 30 || t->tm_min == 40 || t->tm_min == 50){
-			if(PoppedDown == false){
+			if(PoppedDownNow == false){
 				makeScrollDown();
 			}
 		}
@@ -490,7 +497,7 @@ static void time_timer_tick(struct tm *t, TimeUnits units_changed) {
 
 		// last time was 3 lines, new time is 2 lines, for when "Oh" option activated
 		if(t->tm_min == 0 || t->tm_min == 10 || t->tm_min == 15 || t->tm_min == 20 || t->tm_min == 30 || t->tm_min == 40 || t->tm_min == 50){
-			if(PoppedDown == false){
+			if(PoppedDownNow == false){
 				makeScrollDown();
 			}
 		}
@@ -596,8 +603,9 @@ static void init() {
 	// Register for minute ticks
 	tick_timer_service_subscribe(MINUTE_UNIT, time_timer_tick);
 	
-	// inititialize PoppedDown indicator
-	PoppedDown = false;
+	// inititialize PoppedDown indicators
+	PoppedDownNow = false;
+	PoppedDownAtInit = false;
 	
 // If initial display of time is only 2 lines of text, display centered
 //  Consider that fewer times have only 2 lines if "Oh" options is activated
@@ -608,8 +616,10 @@ static void init() {
 		   t->tm_min == 30 || t->tm_min == 40 || t->tm_min == 50){
 			makePopDown();
 			
-			// signal that this has been done, so down animation doesn't happen as well
-			PoppedDown = true;
+			// signal that this has been done, so an extra animation isn't triggered, and the down animation knows the right
+			// starting place
+			PoppedDownNow = true;
+			PoppedDownAtInit = true;
 		}
 	} else {
 		if(t->tm_min == 0 || t->tm_min == 10 || t->tm_min == 11 || t->tm_min == 12 || t->tm_min == 13 ||
@@ -617,8 +627,10 @@ static void init() {
 		   t->tm_min == 50){
 			makePopDown();
 			
-			// signal that this has been done, so down animation doesn't happen as well
-			PoppedDown = true;
+			// signal that this has been done, so an extra animation isn't triggered, and the down animation knows the right
+			// starting place
+			PoppedDownNow = true;
+			PoppedDownAtInit = true;
 		}
 	}
 }
