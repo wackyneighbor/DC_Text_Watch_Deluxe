@@ -1,7 +1,9 @@
 # DC_Text_Watch_Deluxe
 DC's Text Watch Deluxe for Pebble Time Round smartwatch
 
-<IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12381789/d811c75a-bd45-11e5-9ceb-5e4b993f6339.png" ALT="Screenshot_1_0631_Summer.png" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12381790/db62265c-bd45-11e5-94e1-fa2967e11c60.png" ALT="Screenshot_2_Noon_Summer.png" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12381793/dd8390f6-bd45-11e5-8ef5-258a6c82a0d5.png" ALT="Screenshot_3_Noon_Winter.png" WIDTH=180 HEIGHT=180>
+<IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12413102/3ad8d490-be41-11e5-9bcd-ba3b6f997fb2.gif" ALT="Time-Slide.gif" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12413715/c2bb740e-be45-11e5-9028-990f1f120c53.gif" ALT="Time_Dial.gif" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12413109/47db7bc0-be41-11e5-926f-4de648e1592c.gif" ALT="Seasons.gif" WIDTH=180 HEIGHT=180>
+
+<IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12381789/d811c75a-bd45-11e5-9ceb-5e4b993f6339.png" ALT="Screenshot_1_0631_Summer.png" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12413112/4d01b632-be41-11e5-97d2-d9e387b711ea.png" ALT="surf.png" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12413115/4fe2e3ee-be41-11e5-9cf2-3ae9768d1a57.png" ALT="neapolitan.png" WIDTH=180 HEIGHT=180>
 
 This is a variant of the "Sliding Time" text watch, with some significant changes:
 *  Single digit times can be prefixed with O' (same line) or with "Oh" (on an extra line).
