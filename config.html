@@ -259,10 +259,13 @@
 
 
   function getConfigData() {
+    var SinglePrefixTypeMenuPick = document.getElementById('SinglePrefixTypeMenu');
+    var ColorSchemeMenuPick = document.getElementById('ColorSchemeMenu');
+  
     var settings = {
-	  'SinglePrefixType': (document.getElementById('SinglePrefixTypeMenu').value),
- 	  'ColorScheme': (document.getElementById('ColorSchemeMenu').value),
-      'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
+ 	  'SinglePrefixType': SinglePrefixTypeMenuPick.options[SinglePrefixTypeMenuPick.selectedIndex].value,
+ 	  'ColorScheme':  ColorSchemeMenuPick.options[ColorSchemeMenuPick.selectedIndex].value,
+	  'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
       'TextLine1Color1': getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
       'TextLine2Color1': getHexStrColorWithOut0x(document.getElementById('TextLine2Color1Picker').value),
       'TextLine3Color1': getHexStrColorWithOut0x(document.getElementById('TextLine3Color1Picker').value),
@@ -317,8 +320,8 @@
         }
 
     // pick URL parameters...
-    document.getElementById('SinglePrefixTypeMenu').value = 'SinglePrefixType';
-    document.getElementById('ColorSchemeMenu').value = 'ColorScheme';
+    document.getElementById('SinglePrefixTypeMenu').checked = 'SinglePrefixType';
+    document.getElementById('ColorSchemeMenu').checked = 'ColorScheme';
     document.getElementById('BackgroundColor1Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor1', '000000'));
     document.getElementById('TextLine1Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine1Color1', 'FFFFFF'));
     document.getElementById('TextLine2Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine2Color1', 'FFFFFF'));
