@@ -27,20 +27,20 @@
     <label class="item">
       Single Digit Prefix
       <select id="SinglePrefixTypeMenu" dir='rtl' class="item-select">
-        <option class="item-select-option">none</option>
-        <option class="item-select-option">O apostrophe</option>
-        <option class="item-select-option">Oh - on new line</option>
+        <option class="item-select-option" value="1" >none</option>
+        <option class="item-select-option" value="2" >O apostrophe</option>
+        <option class="item-select-option" value="3" >Oh - on new line</option>
       </select>
     </label>
 
     <label class="item">
       Color Scheme
       <select id="ColorSchemeMenu" dir='rtl' class="item-select">
-        <option class="item-select-option">Default</option>
-        <option class="item-select-option">Inverted</option>
-        <option class="item-select-option">Custom Scheme 1</option>
-        <option class="item-select-option">Custom Scheme 2</option>
-        <option class="item-select-option">Custom Scheme 3</option>
+        <option class="item-select-option" value="1" >Default</option>
+        <option class="item-select-option" value="2" >Inverted</option>
+        <option class="item-select-option" value="3" >Custom Scheme 1</option>
+        <option class="item-select-option" value="4" >Custom Scheme 2</option>
+        <option class="item-select-option" value="5" >Custom Scheme 3</option>
       </select>
     </label>
   </div>
@@ -260,8 +260,8 @@
 
   function getConfigData() {
     var settings = {
-      'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu'),
-      'ColorScheme': document.getElementById('ColorSchemeMenu'),
+      'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu').value,
+      'ColorScheme': document.getElementById('ColorSchemeMenu').value,
       'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
       'TextLine1Color1': getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
       'TextLine2Color1': getHexStrColorWithOut0x(document.getElementById('TextLine2Color1Picker').value),
@@ -317,8 +317,8 @@
         }
 
     // pick URL parameters...
-    document.getElementById('SinglePrefixTypeMenu').value = getQueryParam('SinglePrefixType', '1');
-    document.getElementById('ColorSchemeMenu').value = getQueryParam('ColorScheme', '0');
+    document.getElementById('SinglePrefixTypeMenu').value = getQueryParam('SinglePrefixType', '2');
+    document.getElementById('ColorSchemeMenu').value = getQueryParam('ColorScheme', '1');
     document.getElementById('BackgroundColor1Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor1', '000000'));
     document.getElementById('TextLine1Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine1Color1', 'FFFFFF'));
     document.getElementById('TextLine2Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine2Color1', 'FFFFFF'));
