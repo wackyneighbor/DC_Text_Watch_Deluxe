@@ -259,13 +259,10 @@
 
 
   function getConfigData() {
-    var SinglePrefixTypeMenuPick = document.getElementById('SinglePrefixTypeMenu');
-    var ColorSchemeMenuPick = document.getElementById('ColorSchemeMenu');
-  
     var settings = {
- 	  'SinglePrefixType': SinglePrefixTypeMenuPick.options[SinglePrefixTypeMenuPick.selectedIndex].value,
- 	  'ColorScheme':  ColorSchemeMenuPick.options[ColorSchemeMenuPick.selectedIndex].value,
-	  'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
+      'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu').selectedIndex,
+      'ColorScheme': document.getElementById('ColorSchemeMenu').selectedIndex,
+      'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
       'TextLine1Color1': getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
       'TextLine2Color1': getHexStrColorWithOut0x(document.getElementById('TextLine2Color1Picker').value),
       'TextLine3Color1': getHexStrColorWithOut0x(document.getElementById('TextLine3Color1Picker').value),
