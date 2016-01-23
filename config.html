@@ -28,7 +28,7 @@
       Single Digit Prefix
       <select id="SinglePrefixTypeMenu" dir='rtl' class="item-select">
         <option class="item-select-option" id="1">none</option>
-        <option class="item-select-option" id="2" selected="selected">O apostrophe</option>
+        <option class="item-select-option" id="2">O apostrophe</option>
         <option class="item-select-option" id="3">Oh - on new line</option>
       </select>
     </label>
@@ -36,8 +36,8 @@
     <label class="item">
       Color Scheme
       <select id="ColorSchemeMenu" dir='rtl' class="item-select">
-        <option class="item-select-option" id="1">Default - black background</option>
-        <option class="item-select-option" id="2">Inverted - white background</option>
+        <option class="item-select-option" id="1">Default</option>
+        <option class="item-select-option" id="2">Inverted</option>
         <option class="item-select-option" id="3">Custom Scheme 1</option>
         <option class="item-select-option" id="4">Custom Scheme 2</option>
         <option class="item-select-option" id="5">Custom Scheme 3</option>
@@ -260,6 +260,8 @@
 
   function getConfigData() {
     var settings = {
+	  'SinglePrefixType': (document.getElementById('SinglePrefixTypeMenu').value),
+ 	  'ColorScheme': (document.getElementById('ColorSchemeMenu').value),
       'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
       'TextLine1Color1': getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
       'TextLine2Color1': getHexStrColorWithOut0x(document.getElementById('TextLine2Color1Picker').value),
@@ -286,9 +288,7 @@
       'TextDateColor3': getHexStrColorWithOut0x(document.getElementById('TextDateColor3Picker').value),
       'TimeIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('TimeIndicatorColor3Picker').value),
       'SunriseIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('SunriseIndicatorColor3Picker').value),
-      'SunsetIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('SunsetIndicatorColor3Picker').value),
-	  'SinglePrefixType': (document.getElementById('SinglePrefixTypeMenu').value),
- 	  'ColorScheme': (document.getElementById('ColorSchemeMenu').value)
+      'SunsetIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('SunsetIndicatorColor3Picker').value)
     };
 
     console.log('Got options: ' + JSON.stringify(settings));
@@ -317,6 +317,8 @@
         }
 
     // pick URL parameters...
+    document.getElementById('SinglePrefixTypeMenu').checked = 'SinglePrefixType';
+    document.getElementById('ColorSchemeMenu').checked = 'ColorScheme';
     document.getElementById('BackgroundColor1Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor1', '000000'));
     document.getElementById('TextLine1Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine1Color1', 'FFFFFF'));
     document.getElementById('TextLine2Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine2Color1', 'FFFFFF'));
@@ -344,8 +346,6 @@
     document.getElementById('TimeIndicatorColor3Picker').value = getHexStrColorWith0x(getQueryParam('TimeIndicatorColor3', 'AAAA00'));
     document.getElementById('SunriseIndicatorColor3Picker').value = getHexStrColorWith0x(getQueryParam('SunriseIndicatorColor3', 'AAAAAA'));
     document.getElementById('SunsetIndicatorColor3picker').value = getHexStrColorWith0x(getQueryParam('SunsetIndicatorColor3', 'AAAAAA'));
-    document.getElementById('SinglePrefixTypeMenu').checked = getQueryParam('SinglePrefixType', '2')
-    document.getElementById('ColorSchemeMenu').checked = getQueryParam('ColorScheme', '1')
   })();
   </script>
 </html>
