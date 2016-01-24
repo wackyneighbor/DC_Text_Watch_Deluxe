@@ -251,8 +251,7 @@
     {
         return in_str.substr(2, 6);
     }
-    else
-    if (in_str.startsWith('#'))
+    else if (in_str.startsWith('#'))
     {
         return in_str.substr(1, 6);
     }
@@ -293,7 +292,7 @@
       'TextDateColor3': getHexStrColorWithOut0x(document.getElementById('TextDateColor3Picker').value),
       'TimeIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('TimeIndicatorColor3Picker').value),
       'SunriseIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('SunriseIndicatorColor3Picker').value),
-      'SunsetIndicatorColor3': getHexStrColorWithOutOut0x(document.getElementById('SunsetIndicatorColor3Picker').value)
+      'SunsetIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('SunsetIndicatorColor3Picker').value)
     };
 
     console.log('Got options: ' + JSON.stringify(settings));
