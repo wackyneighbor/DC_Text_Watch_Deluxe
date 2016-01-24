@@ -36,11 +36,11 @@
     <label class="item">
       Color Scheme
       <select id="ColorSchemeMenu" dir='rtl' class="item-select">
-        <option class="item-select-option" value="A" >Default</option>
-        <option class="item-select-option" value="B" >Inverted</option>
-        <option class="item-select-option" value="C" >Custom Scheme 1</option>
-        <option class="item-select-option" value="D" >Custom Scheme 2</option>
-        <option class="item-select-option" value="E" >Custom Scheme 3</option>
+        <option class="item-select-option" value="1" >Default</option>
+        <option class="item-select-option" value="2" >Inverted</option>
+        <option class="item-select-option" value="3" >Custom Scheme 1</option>
+        <option class="item-select-option" value="4" >Custom Scheme 2</option>
+        <option class="item-select-option" value="5" >Custom Scheme 3</option>
       </select>
     </label>
   </div>
@@ -316,7 +316,7 @@
 
     // pick URL parameters...
     document.getElementById('SinglePrefixTypeMenu').value = getQueryParam('SinglePrefixType', '2');
-    document.getElementById('ColorSchemeMenu').value = getQueryParam('ColorScheme', 'A');
+    document.getElementById('ColorSchemeMenu').value = getQueryParam('ColorScheme', '1');
     document.getElementById('BackgroundColor1Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor1', '#000000'));
     document.getElementById('TextLine1Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine1Color1', '#FFFFFF'));
     document.getElementById('TextLine2Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine2Color1', '#FFFFFF'));
