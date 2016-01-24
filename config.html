@@ -260,7 +260,7 @@
   function getConfigData() {
     var settings = {
       'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu').value,
-      'ColorScheme': document.getElementById('ColorSchemeMenu').value,
+      'ColorScheme': num.toString(document.getElementById('ColorSchemeMenu').value),
       'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
       'TextLine1Color1': getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
       'TextLine2Color1': getHexStrColorWithOut0x(document.getElementById('TextLine2Color1Picker').value),
