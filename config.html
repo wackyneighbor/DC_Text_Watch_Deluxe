@@ -229,65 +229,37 @@
     document.location = return_to + encodeURIComponent(JSON.stringify(getConfigData()));
   });
     
-  function getHexStrColorWith0x(in_str) {
-    /*
-    ** Returns hex string WITH a leading 0x
-    */
-    if (in_str.startsWith('0x'))
-    {
-        return in_str;
-    }
-    else
-    {
-        return '0x' + in_str;
-    }
-  }
-
-  function getHexStrColorWithOut0x(in_str) {
-    /*
-    ** Returns hex string withOUT a leading 0x
-    */
-    if (in_str.startsWith('0x'))
-    {
-        return in_str.substr(2, 6);
-    }
-    else
-    {
-        return in_str;
-    }
-  }
-
   function getConfigData() {
     var settings = {
       'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu').value,
       'ColorScheme': document.getElementById('ColorSchemeMenu').value,
-      'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
-      'TextLine1Color1': getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
-      'TextLine2Color1': getHexStrColorWithOut0x(document.getElementById('TextLine2Color1Picker').value),
-      'TextLine3Color1': getHexStrColorWithOut0x(document.getElementById('TextLine3Color1Picker').value),
-      'TextDayColor1': getHexStrColorWithOut0x(document.getElementById('TextDayColor1Picker').value),
-      'TextDateColor1': getHexStrColorWithOut0x(document.getElementById('TextDateColor1Picker').value),
-      'TimeIndicatorColor1': getHexStrColorWithOut0x(document.getElementById('TimeIndicatorColor1Picker').value),
-      'SunriseIndicatorColor1': getHexStrColorWithOut0x(document.getElementById('SunriseIndicatorColor1Picker').value),
-      'SunsetIndicatorColor1': getHexStrColorWithOut0x(document.getElementById('SunsetIndicatorColor1Picker').value),
-      'BackgroundColor2': getHexStrColorWithOut0x(document.getElementById('BackgroundColor2Picker').value),
-      'TextLine1Color2': getHexStrColorWithOut0x(document.getElementById('TextLine1Color2Picker').value),
-      'TextLine2Color2': getHexStrColorWithOut0x(document.getElementById('TextLine2Color2Picker').value),
-      'TextLine3Color2': getHexStrColorWithOut0x(document.getElementById('TextLine3Color2Picker').value),
-      'TextDayColor2': getHexStrColorWithOut0x(document.getElementById('TextDayColor2Picker').value),
-      'TextDateColor2': getHexStrColorWithOut0x(document.getElementById('TextDateColor2Picker').value),
-      'TimeIndicatorColor2': getHexStrColorWithOut0x(document.getElementById('TimeIndicatorColor2Picker').value),
-      'SunriseIndicatorColor2': getHexStrColorWithOut0x(document.getElementById('SunriseIndicatorColor2Picker').value),
-      'SunsetIndicatorColor2': getHexStrColorWithOut0x(document.getElementById('SunsetIndicatorColor2Picker').value),
-      'BackgroundColor3': getHexStrColorWithOut0x(document.getElementById('BackgroundColor3Picker').value),
-      'TextLine1Color3': getHexStrColorWithOut0x(document.getElementById('TextLine1Color3Picker').value),
-      'TextLine2Color3': getHexStrColorWithOut0x(document.getElementById('TextLine2Color3Picker').value),
-      'TextLine3Color3': getHexStrColorWithOut0x(document.getElementById('TextLine3Color3Picker').value),
-      'TextDayColor3': getHexStrColorWithOut0x(document.getElementById('TextDayColor3Picker').value),
-      'TextDateColor3': getHexStrColorWithOut0x(document.getElementById('TextDateColor3Picker').value),
-      'TimeIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('TimeIndicatorColor3Picker').value),
-      'SunriseIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('SunriseIndicatorColor3Picker').value),
-      'SunsetIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('SunsetIndicatorColor3Picker').value)
+      'BackgroundColor1': document.getElementById('BackgroundColor1Picker').value,
+      'TextLine1Color1': document.getElementById('TextLine1Color1Picker').value,
+      'TextLine2Color1': document.getElementById('TextLine2Color1Picker').value,
+      'TextLine3Color1': document.getElementById('TextLine3Color1Picker').value,
+      'TextDayColor1': document.getElementById('TextDayColor1Picker').value,
+      'TextDateColor1': document.getElementById('TextDateColor1Picker').value,
+      'TimeIndicatorColor1': document.getElementById('TimeIndicatorColor1Picker').value,
+      'SunriseIndicatorColor1': document.getElementById('SunriseIndicatorColor1Picker').value,
+      'SunsetIndicatorColor1': document.getElementById('SunsetIndicatorColor1Picker').value,
+      'BackgroundColor2': document.getElementById('BackgroundColor2Picker').value,
+      'TextLine1Color2': document.getElementById('TextLine1Color2Picker').value,
+      'TextLine2Color2': document.getElementById('TextLine2Color2Picker').value,
+      'TextLine3Color2': document.getElementById('TextLine3Color2Picker').value,
+      'TextDayColor2': document.getElementById('TextDayColor2Picker').value,
+      'TextDateColor2': document.getElementById('TextDateColor2Picker').value,
+      'TimeIndicatorColor2': document.getElementById('TimeIndicatorColor2Picker').value,
+      'SunriseIndicatorColor2': document.getElementById('SunriseIndicatorColor2Picker').value,
+      'SunsetIndicatorColor2': document.getElementById('SunsetIndicatorColor2Picker').value,
+      'BackgroundColor3': document.getElementById('BackgroundColor3Picker').value,
+      'TextLine1Color3': document.getElementById('TextLine1Color3Picker').value,
+      'TextLine2Color3': document.getElementById('TextLine2Color3Picker').value,
+      'TextLine3Color3': document.getElementById('TextLine3Color3Picker').value,
+      'TextDayColor3': document.getElementById('TextDayColor3Picker').value,
+      'TextDateColor3': document.getElementById('TextDateColor3Picker').value,
+      'TimeIndicatorColor3': document.getElementById('TimeIndicatorColor3Picker').value,
+      'SunriseIndicatorColor3': document.getElementById('SunriseIndicatorColor3Picker').value,
+      'SunsetIndicatorColor3': document.getElementById('SunsetIndicatorColor3Picker').value
     };
 
     console.log('Got options: ' + JSON.stringify(settings));
@@ -318,33 +290,33 @@
     // pick URL parameters...
     document.getElementById('SinglePrefixTypeMenu').value = getQueryParam('SinglePrefixType', '2');
     document.getElementById('ColorSchemeMenu').value = getQueryParam('ColorScheme', '1');
-    document.getElementById('BackgroundColor1Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor1', '#000000'));
-    document.getElementById('TextLine1Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine1Color1', '#FFFFFF'));
-    document.getElementById('TextLine2Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine2Color1', '#FFFFFF'));
-    document.getElementById('TextLine3Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine3Color1', '#FFFFFF'));
-    document.getElementById('TextDayColor1Picker').value = getHexStrColorWith0x(getQueryParam('TextDayColor1', '#FFFFFF'));
-    document.getElementById('TextDateColor1Picker').value = getHexStrColorWith0x(getQueryParam('TextDateColor1', '#FFFFFF'));
-    document.getElementById('TimeIndicatorColor1Picker').value = getHexStrColorWith0x(getQueryParam('TimeIndicatorColor1', '#AAAA00'));
-    document.getElementById('SunriseIndicatorColor1Picker').value = getHexStrColorWith0x(getQueryParam('SunriseIndicatorColor1', '#AAAAAA'));
-    document.getElementById('SunsetIndicatorColor1Picker').value = getHexStrColorWith0x(getQueryParam('SunsetIndicatorColor1', '#AAAAAA'));
-    document.getElementById('BackgroundColor2Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor2', '#000000'));
-    document.getElementById('TextLine1Color2Picker').value = getHexStrColorWith0x(getQueryParam('TextLine1Color2', '#FFFFFF'));
-    document.getElementById('TextLine2Color2Picker').value = getHexStrColorWith0x(getQueryParam('TextLine2Color2', '#FFFFFF'));
-    document.getElementById('TextLine3Color2Picker').value = getHexStrColorWith0x(getQueryParam('TextLine3Color2', '#FFFFFF'));
-    document.getElementById('TextDayColor2Picker').value = getHexStrColorWith0x(getQueryParam('TextDayColor2', '#FFFFFF'));
-    document.getElementById('TextDateColor2Picker').value = getHexStrColorWith0x(getQueryParam('TextDateColor2', '#FFFFFF'));
-    document.getElementById('TimeIndicatorColor2Picker').value = getHexStrColorWith0x(getQueryParam('TimeIndicatorColor2', '#AAAA00'));
-    document.getElementById('SunriseIndicatorColor2Picker').value = getHexStrColorWith0x(getQueryParam('SunriseIndicatorColor2', '#AAAAAA'));
-    document.getElementById('SunsetIndicatorColor2Picker').value = getHexStrColorWith0x(getQueryParam('SunsetIndicatorColor2', '#AAAAAA'));
-    document.getElementById('BackgroundColor3Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor3', '#000000'));
-    document.getElementById('TextLine1Color3Picker').value = getHexStrColorWith0x(getQueryParam('TextLine1Color3', '#FFFFFF'));
-    document.getElementById('TextLine2Color3Picker').value = getHexStrColorWith0x(getQueryParam('TextLine2Color3', '#FFFFFF'));
-    document.getElementById('TextLine3Color3Picker').value = getHexStrColorWith0x(getQueryParam('TextLine3Color3', '#FFFFFF'));
-    document.getElementById('TextDayColor3Picker').value = getHexStrColorWith0x(getQueryParam('TextDayColor3', '#FFFFFF'));
-    document.getElementById('TextDateColor3Picker').value = getHexStrColorWith0x(getQueryParam('TextDateColor3', '#FFFFFF'));
-    document.getElementById('TimeIndicatorColor3Picker').value = getHexStrColorWith0x(getQueryParam('TimeIndicatorColor3', '#AAAA00'));
-    document.getElementById('SunriseIndicatorColor3Picker').value = getHexStrColorWith0x(getQueryParam('SunriseIndicatorColor3', '#AAAAAA'));
-    document.getElementById('SunsetIndicatorColor3Picker').value = getHexStrColorWith0x(getQueryParam('SunsetIndicatorColor3', '#AAAAAA'));
+    document.getElementById('BackgroundColor1Picker').value = getQueryParam('BackgroundColor1', '#000000');
+    document.getElementById('TextLine1Color1Picker').value = getQueryParam('TextLine1Color1', '#FFFFFF');
+    document.getElementById('TextLine2Color1Picker').value = getQueryParam('TextLine2Color1', '#FFFFFF');
+    document.getElementById('TextLine3Color1Picker').value = getQueryParam('TextLine3Color1', '#FFFFFF');
+    document.getElementById('TextDayColor1Picker').value = getQueryParam('TextDayColor1', '#FFFFFF');
+    document.getElementById('TextDateColor1Picker').value = getQueryParam('TextDateColor1', '#FFFFFF');
+    document.getElementById('TimeIndicatorColor1Picker').value = getQueryParam('TimeIndicatorColor1', '#AAAA00');
+    document.getElementById('SunriseIndicatorColor1Picker').value = getQueryParam('SunriseIndicatorColor1', '#AAAAAA');
+    document.getElementById('SunsetIndicatorColor1Picker').value = getQueryParam('SunsetIndicatorColor1', '#AAAAAA');
+    document.getElementById('BackgroundColor2Picker').value = getQueryParam('BackgroundColor2', '#000000');
+    document.getElementById('TextLine1Color2Picker').value = getQueryParam('TextLine1Color2', '#FFFFFF');
+    document.getElementById('TextLine2Color2Picker').value = getQueryParam('TextLine2Color2', '#FFFFFF');
+    document.getElementById('TextLine3Color2Picker').value = getQueryParam('TextLine3Color2', '#FFFFFF');
+    document.getElementById('TextDayColor2Picker').value = getQueryParam('TextDayColor2', '#FFFFFF');
+    document.getElementById('TextDateColor2Picker').value = getQueryParam('TextDateColor2', '#FFFFFF');
+    document.getElementById('TimeIndicatorColor2Picker').value = getQueryParam('TimeIndicatorColor2', '#AAAA00');
+    document.getElementById('SunriseIndicatorColor2Picker').value = getQueryParam('SunriseIndicatorColor2', '#AAAAAA');
+    document.getElementById('SunsetIndicatorColor2Picker').value = getQueryParam('SunsetIndicatorColor2', '#AAAAAA');
+    document.getElementById('BackgroundColor3Picker').value = getQueryParam('BackgroundColor3', '#000000');
+    document.getElementById('TextLine1Color3Picker').value = getQueryParam('TextLine1Color3', '#FFFFFF');
+    document.getElementById('TextLine2Color3Picker').value = getQueryParam('TextLine2Color3', '#FFFFFF');
+    document.getElementById('TextLine3Color3Picker').value = getQueryParam('TextLine3Color3', '#FFFFFF');
+    document.getElementById('TextDayColor3Picker').value = getQueryParam('TextDayColor3', '#FFFFFF');
+    document.getElementById('TextDateColor3Picker').value = getQueryParam('TextDateColor3', '#FFFFFF');
+    document.getElementById('TimeIndicatorColor3Picker').value = getQueryParam('TimeIndicatorColor3', '#AAAA00');
+    document.getElementById('SunriseIndicatorColor3Picker').value = getQueryParam('SunriseIndicatorColor3', '#AAAAAA');
+    document.getElementById('SunsetIndicatorColor3Picker').value = getQueryParam('SunsetIndicatorColor3', '#AAAAAA');
   })();
   </script>
 </html>
