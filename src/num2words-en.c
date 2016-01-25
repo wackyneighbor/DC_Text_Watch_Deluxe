@@ -1,12 +1,18 @@
+#include <pebble.h>
 #include "num2words-en.h"
 #include "string.h"
-#include "config.h"
 
 #define true 1
 #define false 0
 
 // Options
 #define DEBUG false
+
+// Persistent storage keys
+enum {
+	SHOW_O_PREFIX_STORED = 6,
+	SHOW_Oh_PREFIX_STORED = 7
+};
 
 static const char* const ONES[] = {
   "o'clock",
@@ -46,7 +52,6 @@ static const char* const TENS[] = {
   "eighty",
   "ninety"
 };
-
 
 static size_t append_number(char* words, int num, short oh) {
   int tens_val = num / 10 % 10;
@@ -92,12 +97,14 @@ void time_to_words(int hours, int minutes, char* words, size_t length) {
   }
 
   remaining -= append_string(words, remaining, " ");
-  remaining -= append_number(words, minutes, TimeRenderOh);
+  remaining -= append_number(words, minutes, persist_read_bool(SHOW_Oh_PREFIX_STORED));
   remaining -= append_string(words, remaining, " ");
 }
 
-void time_to_3words(int hours, int minutes, char *line1, char *line2, char *line3, size_t length)
-{
+void time_to_3words(int hours, int minutes, char *line1, char *line2, char *line3, size_t length){
+
+	bool SHOW_O_PREFIX;
+
 	char value[length];
 	time_to_words(hours, minutes, value, length);
 	
@@ -133,13 +140,15 @@ void time_to_3words(int hours, int minutes, char *line1, char *line2, char *line
         }
 
 	//add o' to minutes if necessary
-	if (TimeRenderO){
+	SHOW_O_PREFIX= persist_read_bool(SHOW_O_PREFIX_STORED);
+	if (SHOW_O_PREFIX){
       if(minutes > 0 && minutes < 10) {
         char new_line2[8] = "o'";
         strcat(new_line2, line2);
         memcpy(line2, new_line2, strlen(new_line2)+1);
       }
 	}
+	
     //at twelve replace "o'clock" with "noon" or "midnight"
     if (minutes == 0 && hours == 0) {
 		strcpy(line2, "midnight");

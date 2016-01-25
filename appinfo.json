@@ -1,12 +1,24 @@
 {
     "appKeys": {
+        "KEY_BACKGROUND_COLOR": 7,
+        "KEY_COLOR_SCHEME": 6,
         "KEY_LATITUDE": 1,
         "KEY_LONGITUDE": 2,
+        "KEY_SINGLE_PREFIX_TYPE": 5,
+        "KEY_SUNRISE_INDICATOR_COLOR": 14,
+        "KEY_SUNSET_INDICATOR_COLOR": 15,
+        "KEY_TEXT_DATE_COLOR": 12,
+        "KEY_TEXT_DAY_COLOR": 11,
+        "KEY_TEXT_LINE_1_COLOR": 8,
+        "KEY_TEXT_LINE_2_COLOR": 9,
+        "KEY_TEXT_LINE_3_COLOR": 10,
+        "KEY_TIME_INDICATOR_COLOR": 13,
         "KEY_USEOLDDATA": 3,
         "KEY_UTCh": 4
     },
     "capabilities": [
-        "location"
+        "location",
+        "configurable"
     ],
     "companyName": "DC",
     "longName": "DC's Text Watch Deluxe",
@@ -27,8 +39,8 @@
     "targetPlatforms": [
         "chalk"
     ],
-    "uuid": "bb7dde03-b215-4644-91d5-5d5240657c99",
-    "versionLabel": "0.7",
+    "uuid": "f6842ffa-f32f-4cc8-8ed4-9336b4d5170d",
+    "versionLabel": "0.8",
     "watchapp": {
         "watchface": true
     }

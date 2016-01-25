@@ -1,9 +1,7 @@
 #include <pebble.h>
 #include "my_math.h"
 #include "suncalc.h"
-#include "config.h"
 #include "num2words-en.h"
-
 #define BUFFER_SIZE 44
 
 static const char* const MONTHS[] = {
@@ -83,6 +81,15 @@ PropertyAnimation *scroll_up;
 static bool PoppedDownNow;
 static bool PoppedDownAtInit;
 
+static GColor BACKGROUND_COLOR;
+static GColor TEXT_LINE_1_COLOR;
+static GColor TEXT_LINE_2_COLOR;
+static GColor TEXT_LINE_3_COLOR;
+static GColor TEXT_DAY_COLOR;
+static GColor TEXT_DATE_COLOR;
+static GColor TIME_INDICATOR_COLOR;
+static GColor SUNRISE_INDICATOR_COLOR;
+static GColor SUNSET_INDICATOR_COLOR;
 
 // Global variable declarations
 static float localLat_deg;		// Declare the global variable of the last known latitude
@@ -92,95 +99,46 @@ static uint32_t lastUpdateDate;	// Declare a global variable for the last GPS up
 static int8_t lastUpdateOffset;	// Declare a global variable for the number of hours offset from UTC at time of last GPS update
 static int8_t lastUpdateDST;	// Declare a global variable for if DST was active at last GPS update
 
-// Javascript dictionary keys for GPS get
+// Javascript dictionary keys for GPS get & config updates
 enum {
 	KEY_LATITUDE = 1,
 	KEY_LONGITUDE = 2,
 	KEY_USEOLDDATA = 3,
-	KEY_UTCh = 4
-}
+	KEY_UTCh = 4,
+	KEY_SINGLE_PREFIX_TYPE = 5,
+	KEY_COLOR_SCHEME = 6,
+	KEY_BACKGROUND_COLOR = 7,
+	KEY_TEXT_LINE_1_COLOR = 8,
+	KEY_TEXT_LINE_2_COLOR = 9,
+	KEY_TEXT_LINE_3_COLOR = 10,
+	KEY_TEXT_DAY_COLOR = 11,
+	KEY_TEXT_DATE_COLOR = 12,
+	KEY_TIME_INDICATOR_COLOR = 13,
+	KEY_SUNRISE_INDICATOR_COLOR = 14,
+	KEY_SUNSET_INDICATOR_COLOR = 15
+};
 
 // Persistent storage keys
-;enum {
+enum {
 	LAT_STORED = 0,
 	LNG_STORED = 1,
 	UTC_STORED = 2,
 	LAST_DATE_STORED = 3,
 	LAST_TIME_STORED = 4,
 	DST_STORED = 5,
+	SHOW_O_PREFIX_STORED = 6,
+	SHOW_Oh_PREFIX_STORED = 7,
+	COLOR_SCHEME_STORED = 8,
+	BACKGROUND_COLOR_STORED = 9,
+	TEXT_LINE_1_COLOR_STORED = 10,
+	TEXT_LINE_2_COLOR_STORED = 11,
+	TEXT_LINE_3_COLOR_STORED = 12,
+	TEXT_DAY_COLOR_STORED = 13,
+	TEXT_DATE_COLOR_STORED = 14,
+	TIME_INDICATOR_COLOR_STORED = 15,
+	SUNRISE_INDICATOR_COLOR_STORED = 16,
+	SUNSET_INDICATOR_COLOR_STORED = 17
 };
-
-// App communication with phone for GPS requests 
-static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
-	// This is the main function that operates when a callback happens for the GPS request
-	// Store incoming information
-	int16_t newLatitude;
-	int16_t newLongitude;
-	int8_t useNewData = 0;		//Assume using old data until proven otherwise
-	int8_t newUToffset;
-	
-	// Read first item
-	Tuple *t;
-	t = dict_read_first(iterator);
-
-	// For all items
-	while(t != NULL) {
-		// Which key was received?
-		switch(t->key) {
-			case 0:
-			// Key 0 is the first entry in the dictionary, skipped for values as I believe that was the source of problems..
-			break;
-			case KEY_LATITUDE:
-			newLatitude = t->value->int32;
-			break;
-			case KEY_LONGITUDE:
-			newLongitude = (int)t->value->int32;
-			break;
-      		case KEY_USEOLDDATA:
-        	useNewData = (int)t->value->int32;
-        	break;
-      		case KEY_UTCh:
-        	newUToffset = (int)t->value->int32;
-			break;
-			default:
-			APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
-		}
-		
-		// Look for next item
-		t = dict_read_next(iterator);
-	}	//Transer the incoming information into the stores
-
-	// Set the latitude and longitude global variables
-	if (useNewData == 0) {
-		// No new position data available, use old data
-		// Latitude, longitude, UTC offset, and DST indicator remain unchanged
-
-	} else {
-		// New position data available, update global variables. Lat, long, and UTC must remain as flexible variables,
-		// Rise values can be directly accessed through storage
-		// Last update time can be updated to now as well
-		
-		time_t now = time(NULL);
-		struct tm *t = localtime(&now);
-		
-		lastUpdateTime = (t->tm_hour) * 60 + (t->tm_min);
-		lastUpdateDate = (t->tm_year + 1900) * 10000 + (t->tm_mon + 1) * 100 + t->tm_mday;    //Alterations account for time.h functions
-		localLat_deg = (float)newLatitude/100;
-		localLng_deg = (float)newLongitude/100;
-		lastUpdateOffset = newUToffset;
-		lastUpdateDST = t->tm_isdst;
-				
-		persist_write_int(LAT_STORED, newLatitude);    //Already as an integer (must / 100 when retrieving)
-		persist_write_int(LNG_STORED, newLongitude);
-		persist_write_int(UTC_STORED, newUToffset);
-		persist_write_int(LAST_TIME_STORED, lastUpdateTime);
-		persist_write_int(LAST_DATE_STORED, lastUpdateDate);
-		persist_write_int(DST_STORED, lastUpdateDST);
-	}
-}
-static void inbox_dropped_callback(AppMessageResult reason, void *context) {}
-static void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {}
-static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {}
 
 // GPS update procedure
 static void update_GPS() {
@@ -468,6 +426,181 @@ void configureLine3Layer(TextLayer *textlayer, bool right) {
         }
 }
 
+// Set up default configuration settings (colors & single digit prefix),
+// for when user hasn't changed anything yet
+static void prime_settings(){
+
+	if (persist_exists(SHOW_O_PREFIX_STORED) == false){
+		persist_write_bool(SHOW_O_PREFIX_STORED, true); // Show O' prefix by default
+	}
+	if (persist_exists(SHOW_Oh_PREFIX_STORED) == false){
+		persist_write_bool(SHOW_Oh_PREFIX_STORED, false); // Don't show Oh prefix by default
+	}
+	if (persist_exists(BACKGROUND_COLOR_STORED) == false){
+		persist_write_int(BACKGROUND_COLOR_STORED, 0x000000); //GColorBlack
+	}
+	if (persist_exists(TEXT_LINE_1_COLOR_STORED) == false){
+		persist_write_int(TEXT_LINE_1_COLOR_STORED, 0xFFFFFF); //GColorWhite
+	}
+	if (persist_exists(TEXT_LINE_2_COLOR_STORED) == false){
+		persist_write_int(TEXT_LINE_2_COLOR_STORED, 0xFFFFFF); //GColorWhite
+	}
+	if (persist_exists(TEXT_LINE_3_COLOR_STORED) == false){
+		persist_write_int(TEXT_LINE_3_COLOR_STORED, 0xFFFFFF); //GColorWhite
+	}
+	if (persist_exists(TEXT_DAY_COLOR_STORED) == false){
+		persist_write_int(TEXT_DAY_COLOR_STORED, 0xFFFFFF); //GColorWhite
+	}
+	if (persist_exists(TEXT_DATE_COLOR_STORED) == false){
+		persist_write_int(TEXT_DATE_COLOR_STORED, 0xFFFFFF); //GColorWhite
+	}
+	if (persist_exists(TIME_INDICATOR_COLOR_STORED) == false){
+		persist_write_int(TIME_INDICATOR_COLOR_STORED, 0xAAAA00); //GColorLimerick
+	}
+	if (persist_exists(SUNRISE_INDICATOR_COLOR_STORED) == false){
+		persist_write_int(SUNRISE_INDICATOR_COLOR_STORED, 0xAAAAAA); //GColorLightGray
+	}
+	if (persist_exists(SUNSET_INDICATOR_COLOR_STORED) == false){
+		persist_write_int(SUNSET_INDICATOR_COLOR_STORED, 0xAAAAAA); //GColorLightGray
+	}
+}
+
+// Update color settings settings based on config page choices.
+static void update_settings(){
+	BACKGROUND_COLOR = GColorFromHEX(persist_read_int(BACKGROUND_COLOR_STORED));
+	TEXT_LINE_1_COLOR = GColorFromHEX(persist_read_int(TEXT_LINE_1_COLOR_STORED));
+	TEXT_LINE_2_COLOR = GColorFromHEX(persist_read_int(TEXT_LINE_2_COLOR_STORED));
+	TEXT_LINE_3_COLOR = GColorFromHEX(persist_read_int(TEXT_LINE_3_COLOR_STORED));
+	TEXT_DAY_COLOR = GColorFromHEX(persist_read_int(TEXT_DAY_COLOR_STORED));
+	TEXT_DATE_COLOR = GColorFromHEX(persist_read_int(TEXT_DATE_COLOR_STORED));
+	TIME_INDICATOR_COLOR = GColorFromHEX(persist_read_int(TIME_INDICATOR_COLOR_STORED));
+	SUNRISE_INDICATOR_COLOR = GColorFromHEX(persist_read_int(SUNRISE_INDICATOR_COLOR_STORED));
+	SUNSET_INDICATOR_COLOR = GColorFromHEX(persist_read_int(SUNSET_INDICATOR_COLOR_STORED));
+}
+
+// App communication with phone 
+static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
+	// This is the main function that operates when a callback happens for the GPS or config update request
+	// Store incoming information
+	int16_t newLatitude;
+	int16_t newLongitude;
+	int8_t useNewData = 0;		//Assume using old data until proven otherwise
+	int8_t newUToffset;
+	
+	// Read first item
+	Tuple *t;
+	t = dict_read_first(iterator);
+
+	// For all items
+	while(t != NULL) {
+		// Which key was received?
+		switch(t->key) {
+			case 0:
+			// Key 0 is the first entry in the dictionary, skipped for values as I believe that was the source of problems..
+			break;
+			case KEY_LATITUDE:
+			newLatitude = t->value->int32;
+			break;
+			case KEY_LONGITUDE:
+			newLongitude = (int)t->value->int32;
+			break;
+      		case KEY_USEOLDDATA:
+        	useNewData = (int)t->value->int32;
+        	break;
+      		case KEY_UTCh:
+        	newUToffset = (int)t->value->int32;
+			break;
+			case KEY_SINGLE_PREFIX_TYPE:
+			if (t->value->uint8==1){
+				persist_write_bool(SHOW_O_PREFIX_STORED, false);
+				persist_write_bool(SHOW_Oh_PREFIX_STORED, false);
+			} else if (t->value->uint8==2){
+				persist_write_bool(SHOW_O_PREFIX_STORED, true);
+				persist_write_bool(SHOW_Oh_PREFIX_STORED, false);		
+			} else if (t->value->uint8==3){
+				persist_write_bool(SHOW_O_PREFIX_STORED, false);
+				persist_write_bool(SHOW_Oh_PREFIX_STORED, true);		
+			}
+			break;
+			case KEY_COLOR_SCHEME:
+			persist_write_int(COLOR_SCHEME_STORED, t->value->uint8);
+			break;
+			case KEY_BACKGROUND_COLOR:
+			persist_write_int(BACKGROUND_COLOR_STORED, t->value->uint32);
+			break;
+			case KEY_TEXT_LINE_1_COLOR:
+			persist_write_int(TEXT_LINE_1_COLOR_STORED, t->value->uint32);
+			break;
+			case KEY_TEXT_LINE_2_COLOR:
+			persist_write_int(TEXT_LINE_2_COLOR_STORED, t->value->uint32);
+			break;
+			case KEY_TEXT_LINE_3_COLOR:
+			persist_write_int(TEXT_LINE_3_COLOR_STORED, t->value->uint32);
+			break;
+			case KEY_TEXT_DAY_COLOR:
+			persist_write_int(TEXT_DAY_COLOR_STORED, t->value->uint32);
+			break;
+			case KEY_TEXT_DATE_COLOR:
+			persist_write_int(TEXT_DATE_COLOR_STORED, t->value->uint32);
+			break;
+			case KEY_TIME_INDICATOR_COLOR:
+			persist_write_int(TIME_INDICATOR_COLOR_STORED, t->value->uint32);
+			break;
+			case KEY_SUNRISE_INDICATOR_COLOR:
+			persist_write_int(SUNRISE_INDICATOR_COLOR_STORED, t->value->uint32);
+			break;
+			case KEY_SUNSET_INDICATOR_COLOR:
+			persist_write_int(SUNSET_INDICATOR_COLOR_STORED, t->value->uint32);
+			break;
+			default:
+			APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
+		}
+		
+		// Look for next item
+		t = dict_read_next(iterator);
+	}	//Transer the incoming information into the stores
+
+	// Set the latitude and longitude global variables
+	if (useNewData == 0) {
+		// No new position data available, use old data
+		// Latitude, longitude, UTC offset, and DST indicator remain unchanged
+
+	} else {
+		// New position data available, update global variables. Lat, long, and UTC must remain as flexible variables,
+		// Rise values can be directly accessed through storage
+		// Last update time can be updated to now as well
+		
+		time_t now = time(NULL);
+		struct tm *t = localtime(&now);
+		
+		lastUpdateTime = (t->tm_hour) * 60 + (t->tm_min);
+		lastUpdateDate = (t->tm_year + 1900) * 10000 + (t->tm_mon + 1) * 100 + t->tm_mday;    //Alterations account for time.h functions
+		localLat_deg = (float)newLatitude/100;
+		localLng_deg = (float)newLongitude/100;
+		lastUpdateOffset = newUToffset;
+		lastUpdateDST = t->tm_isdst;
+				
+		persist_write_int(LAT_STORED, newLatitude);    //Already as an integer (must / 100 when retrieving)
+		persist_write_int(LNG_STORED, newLongitude);
+		persist_write_int(UTC_STORED, newUToffset);
+		persist_write_int(LAST_TIME_STORED, lastUpdateTime);
+		persist_write_int(LAST_DATE_STORED, lastUpdateDate);
+		persist_write_int(DST_STORED, lastUpdateDST);
+	}
+
+	update_settings();
+	layer_mark_dirty(back_layer);
+//	layer_mark_dirty(text_layer_get_layer(line1.currentLayer));
+//	layer_mark_dirty(text_layer_get_layer(line1.nextLayer));
+//	layer_mark_dirty(text_layer_get_layer(line2.currentLayer));
+//	layer_mark_dirty(text_layer_get_layer(line2.nextLayer));
+//	layer_mark_dirty(text_layer_get_layer(line3.currentLayer));
+//	layer_mark_dirty(text_layer_get_layer(line3.nextLayer));
+}
+static void inbox_dropped_callback(AppMessageResult reason, void *context) {}
+static void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {}
+static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {}
+
 // Update graphics when timer ticks
 static void time_timer_tick(struct tm *t, TimeUnits units_changed) {
 
@@ -482,7 +615,7 @@ static void time_timer_tick(struct tm *t, TimeUnits units_changed) {
 	// Recenter screen if last time was 3 lines, but new time is 2 lines
 	// Don't do this if time was just initialized already centered
 	// Consider that there are fewer times where there are only 2 lines when "Oh" option is activated
-	if (TimeRenderOh == false){
+	if (persist_read_bool(SHOW_Oh_PREFIX_STORED) == false){
 		if(t->tm_min == 0 || t->tm_min == 15 || t->tm_min == 20 || t->tm_min == 30 || t->tm_min == 40 || t->tm_min == 50){
 			if(PoppedDownNow == false){
 				makeScrollDown();
@@ -529,13 +662,13 @@ static void main_window_unload(Window *window) {
 
 // Initialize watchface
 static void init() {
-
+	
 	// Register the callbacks for when a GPS request is made
 	app_message_register_inbox_received(inbox_received_callback);
 	app_message_register_inbox_dropped(inbox_dropped_callback);
 	app_message_register_outbox_failed(outbox_failed_callback);
 	app_message_register_outbox_sent(outbox_sent_callback);
-	
+
 	// Open AppMessage
 	app_message_open(APP_MESSAGE_INBOX_SIZE_MINIMUM, APP_MESSAGE_OUTBOX_SIZE_MINIMUM);
 
@@ -547,6 +680,12 @@ static void init() {
 	lastUpdateTime = (int16_t)persist_read_int(LAST_TIME_STORED);
 	lastUpdateDST = (int8_t)persist_read_int(DST_STORED);
 
+	// Prime persistent storage keys with default values
+	prime_settings();
+	
+	// Update colors parameters with chosen values from config page
+	update_settings();
+	
 	// Configure main window
 	s_main_window = window_create();
 	window_set_background_color(s_main_window, BACKGROUND_COLOR);
@@ -609,7 +748,7 @@ static void init() {
 	
 // If initial display of time is only 2 lines of text, display centered
 //  Consider that fewer times have only 2 lines if "Oh" options is activated
-	if (TimeRenderOh == false){
+	if (persist_read_bool(SHOW_Oh_PREFIX_STORED) == false){
 		if(t->tm_min == 0 || t->tm_min == 1 || t->tm_min == 2 || t->tm_min == 3 || t->tm_min == 4 || t->tm_min == 5 ||
 		   t->tm_min == 6 || t->tm_min == 7 || t->tm_min == 8 || t->tm_min == 9 || t->tm_min == 10 || t->tm_min == 11 ||
 		   t->tm_min == 12 || t->tm_min == 13 || t->tm_min == 15 || t->tm_min == 16 || t->tm_min == 20 ||
