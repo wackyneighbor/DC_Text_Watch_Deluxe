@@ -106,16 +106,15 @@ enum {
 	KEY_USEOLDDATA = 3,
 	KEY_UTCh = 4,
 	KEY_SINGLE_PREFIX_TYPE = 5,
-	KEY_COLOR_SCHEME = 6,
-	KEY_BACKGROUND_COLOR = 7,
-	KEY_TEXT_LINE_1_COLOR = 8,
-	KEY_TEXT_LINE_2_COLOR = 9,
-	KEY_TEXT_LINE_3_COLOR = 10,
-	KEY_TEXT_DAY_COLOR = 11,
-	KEY_TEXT_DATE_COLOR = 12,
-	KEY_TIME_INDICATOR_COLOR = 13,
-	KEY_SUNRISE_INDICATOR_COLOR = 14,
-	KEY_SUNSET_INDICATOR_COLOR = 15
+	KEY_BACKGROUND_COLOR = 6,
+	KEY_TEXT_LINE_1_COLOR = 7,
+	KEY_TEXT_LINE_2_COLOR = 8,
+	KEY_TEXT_LINE_3_COLOR = 9,
+	KEY_TEXT_DAY_COLOR = 10,
+	KEY_TEXT_DATE_COLOR = 11,
+	KEY_TIME_INDICATOR_COLOR = 12,
+	KEY_SUNRISE_INDICATOR_COLOR = 13,
+	KEY_SUNSET_INDICATOR_COLOR = 14
 };
 
 // Persistent storage keys
@@ -128,16 +127,15 @@ enum {
 	DST_STORED = 5,
 	SHOW_O_PREFIX_STORED = 6,
 	SHOW_Oh_PREFIX_STORED = 7,
-	COLOR_SCHEME_STORED = 8,
-	BACKGROUND_COLOR_STORED = 9,
-	TEXT_LINE_1_COLOR_STORED = 10,
-	TEXT_LINE_2_COLOR_STORED = 11,
-	TEXT_LINE_3_COLOR_STORED = 12,
-	TEXT_DAY_COLOR_STORED = 13,
-	TEXT_DATE_COLOR_STORED = 14,
-	TIME_INDICATOR_COLOR_STORED = 15,
-	SUNRISE_INDICATOR_COLOR_STORED = 16,
-	SUNSET_INDICATOR_COLOR_STORED = 17
+	BACKGROUND_COLOR_STORED = 8,
+	TEXT_LINE_1_COLOR_STORED = 9,
+	TEXT_LINE_2_COLOR_STORED = 10,
+	TEXT_LINE_3_COLOR_STORED = 11,
+	TEXT_DAY_COLOR_STORED = 12,
+	TEXT_DATE_COLOR_STORED = 13,
+	TIME_INDICATOR_COLOR_STORED = 14,
+	SUNRISE_INDICATOR_COLOR_STORED = 15,
+	SUNSET_INDICATOR_COLOR_STORED = 16
 };
 
 // GPS update procedure
@@ -486,7 +484,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 	int16_t newLongitude;
 	int8_t useNewData = 0;		//Assume using old data until proven otherwise
 	int8_t newUToffset;
-	
+
 	// Read first item
 	Tuple *t;
 	t = dict_read_first(iterator);
@@ -521,9 +519,6 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 				persist_write_bool(SHOW_O_PREFIX_STORED, false);
 				persist_write_bool(SHOW_Oh_PREFIX_STORED, true);		
 			}
-			break;
-			case KEY_COLOR_SCHEME:
-			persist_write_int(COLOR_SCHEME_STORED, t->value->uint8);
 			break;
 			case KEY_BACKGROUND_COLOR:
 			persist_write_int(BACKGROUND_COLOR_STORED, t->value->uint32);
@@ -588,14 +583,16 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 		persist_write_int(DST_STORED, lastUpdateDST);
 	}
 
+	// Update variables with newly received settings, and apply color changes to background, back layer, and text layers
 	update_settings();
+	window_set_background_color(s_main_window, BACKGROUND_COLOR);
 	layer_mark_dirty(back_layer);
-//	layer_mark_dirty(text_layer_get_layer(line1.currentLayer));
-//	layer_mark_dirty(text_layer_get_layer(line1.nextLayer));
-//	layer_mark_dirty(text_layer_get_layer(line2.currentLayer));
-//	layer_mark_dirty(text_layer_get_layer(line2.nextLayer));
-//	layer_mark_dirty(text_layer_get_layer(line3.currentLayer));
-//	layer_mark_dirty(text_layer_get_layer(line3.nextLayer));
+	text_layer_set_text_color(line1.currentLayer, TEXT_LINE_1_COLOR);
+	text_layer_set_text_color(line1.nextLayer, TEXT_LINE_1_COLOR);
+	text_layer_set_text_color(line2.currentLayer, TEXT_LINE_2_COLOR);
+	text_layer_set_text_color(line2.nextLayer, TEXT_LINE_2_COLOR);
+	text_layer_set_text_color(line3.currentLayer, TEXT_LINE_3_COLOR);
+	text_layer_set_text_color(line3.nextLayer, TEXT_LINE_1_COLOR);
 }
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {}
 static void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {}
@@ -648,6 +645,8 @@ static void main_window_load(Window *window) {
 	Layer *window_layer = window_get_root_layer(window);
 	GRect bounds = layer_get_bounds(window_layer);
 
+	window_set_background_color(s_main_window, BACKGROUND_COLOR);
+	
 	back_layer = layer_create(bounds);
 	layer_set_update_proc(back_layer, back_update_proc);
 
