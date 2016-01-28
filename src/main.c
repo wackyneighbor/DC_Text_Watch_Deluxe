@@ -174,36 +174,52 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
 	update_GPS();
 	}
 	
-	// Calculate sunrise & set times
-	float sunriseTime = calcSunRise(t->tm_year, t->tm_mon+1, t->tm_mday, localLat_deg, localLng_deg, 91.0f);
-	float sunsetTime = calcSunSet(t->tm_year, t->tm_mon+1, t->tm_mday, localLat_deg, localLng_deg, 91.0f);
-
-	// Correct sunrise and sunset times in case Daylight Savings Time was changed since last GPS update
-	if (lastUpdateDST < t->tm_isdst){
-		sunriseTime+=1;
-		sunsetTime+=1;
-	} else if (lastUpdateDST > t->tm_isdst){
-		sunriseTime-=1;
-		sunsetTime-=1;
-	};
-	
-	// Fix time zone of sunrise and sunset
-	adjustTimezone(&sunriseTime);
-	adjustTimezone(&sunsetTime);
-		
 	// Display sunrise & sunset indicators, but only if location has been succesfully determined
 	if(lastUpdateDate != 0){
-		// Display sunrise indicator
-		int32_t sunrise_angle = (TRIG_MAX_ANGLE * (sunriseTime/24));
-		currY = radius * cos_lookup(sunrise_angle) / TRIG_MAX_RATIO + center.y;
-		currX = -radius * sin_lookup(sunrise_angle) / TRIG_MAX_RATIO + center.x;
-		graphics_context_set_fill_color(ctx, SUNRISE_INDICATOR_COLOR); graphics_fill_circle(ctx, GPoint(currX, currY), 6);
+	
+		// Calculate sunrise & set times
+		float sunriseTime = calcSunRise(t->tm_year, t->tm_mon+1, t->tm_mday,  localLat_deg, localLng_deg, 91.0f);
+		float sunsetTime = calcSunSet(t->tm_year, t->tm_mon+1, t->tm_mday, localLat_deg, localLng_deg, 91.0f);
 
-		// Display sunset indicator
-		int32_t sunset_angle = (TRIG_MAX_ANGLE * (sunsetTime/24));
-		currY = radius * cos_lookup(sunset_angle) / TRIG_MAX_RATIO + center.y;
-		currX = -radius * sin_lookup(sunset_angle) / TRIG_MAX_RATIO + center.x;
-		graphics_context_set_fill_color(ctx, SUNSET_INDICATOR_COLOR); graphics_fill_circle(ctx, GPoint(currX, currY), 6);
+		// Only proceed with drawing sunrise indicator if there is a sunrise today.
+		if (sunriseTime != 100){
+		
+			// Correct sunrise time in case Daylight Savings Time was changed since last GPS update
+			if (lastUpdateDST < t->tm_isdst){
+				sunriseTime+=1;
+			} else if (lastUpdateDST > t->tm_isdst){
+				sunriseTime-=1;
+			};
+	
+			// Fix time zone of sunrise
+			adjustTimezone(&sunriseTime);
+
+			// Display sunrise indicator
+			int32_t sunrise_angle = (TRIG_MAX_ANGLE * (sunriseTime/24));
+			currY = radius * cos_lookup(sunrise_angle) / TRIG_MAX_RATIO + center.y;
+			currX = -radius * sin_lookup(sunrise_angle) / TRIG_MAX_RATIO + center.x;
+			graphics_context_set_fill_color(ctx, SUNRISE_INDICATOR_COLOR); graphics_fill_circle(ctx, GPoint(currX, currY), 6);
+		}
+		
+		// Only proceed with drawing sunset indicator if there is a sunset today.
+		if (sunsetTime != 100){
+		
+			// Correct sunset time in case Daylight Savings Time was changed since last GPS update
+			if (lastUpdateDST < t->tm_isdst){
+				sunsetTime+=1;
+			} else if (lastUpdateDST > t->tm_isdst){
+				sunsetTime-=1;
+			};
+	
+			// Fix time zone of sunrise
+			adjustTimezone(&sunsetTime);
+
+			// Display sunset indicator
+			int32_t sunset_angle = (TRIG_MAX_ANGLE * (sunsetTime/24));
+			currY = radius * cos_lookup(sunset_angle) / TRIG_MAX_RATIO + center.y;
+			currX = -radius * sin_lookup(sunset_angle) / TRIG_MAX_RATIO + center.x;
+			graphics_context_set_fill_color(ctx, SUNSET_INDICATOR_COLOR); graphics_fill_circle(ctx, GPoint(currX, currY), 6);
+		}
 	}
 
 	// Display current time indicator

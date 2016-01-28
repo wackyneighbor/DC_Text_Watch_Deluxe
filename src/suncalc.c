@@ -56,12 +56,11 @@ float calcSun(int year, int month, int day, float latitude, float longitude, int
   //cosH = (cos(zenith) - (sinDec * sin(latitude))) / (cosDec * cos(latitude))
   float cosH = (my_cos((M_PI/180.0f) * zenith) - (sinDec * my_sin((M_PI/180.0f) * latitude))) / (cosDec * my_cos((M_PI/180.0f) * latitude));
   
-  if (cosH >  1) {
-    return 0;
+  if (cosH >  1) {       // no sunrise here on this day
+    return 100;          // watchface won't draw indicator if this value is found
   }
-  else if (cosH < -1)
-  {
-    return 0;
+  else if (cosH < -1){   // no sunset here on this day
+    return 100;          // watchface won't draw indicator if this value is found
   }
     
   //7b. finish calculating H and convert into hours
