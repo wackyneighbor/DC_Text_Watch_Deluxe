@@ -108,7 +108,7 @@ Pebble.addEventListener('showConfiguration', function(e) {
  	var TextLine3Color3 = getStorageValue('TextLine3Color3', 0xFFFF55); // GColorIcterine
  	var TextDayColor3 = getStorageValue('TextDayColor3', 0xFFFFAA); // GColorPastelYellow
  	var TextDateColor3 = getStorageValue('TextDateColor3', 0xFFFFAA); // GColorPastelYellow
- 	var TimeIndicatorColor3 = getStorageValue('TimeIndicatorColor3', 0xAA00FF); // GColorVividViolet
+ 	var TimeIndicatorColor3 = getStorageValue('TimeIndicatorColor3', 0x0000FF); // GColorBlue
  	var SunriseIndicatorColor3 = getStorageValue('SunriseIndicatorColor3', 0x000000); // GColorBlack
  	var SunsetIndicatorColor3 = getStorageValue('SunsetIndicatorColor3', 0x000000); // GColorBlack
 	
