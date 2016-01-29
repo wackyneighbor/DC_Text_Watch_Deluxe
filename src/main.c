@@ -608,7 +608,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 	text_layer_set_text_color(line2.currentLayer, TEXT_LINE_2_COLOR);
 	text_layer_set_text_color(line2.nextLayer, TEXT_LINE_2_COLOR);
 	text_layer_set_text_color(line3.currentLayer, TEXT_LINE_3_COLOR);
-	text_layer_set_text_color(line3.nextLayer, TEXT_LINE_1_COLOR);
+	text_layer_set_text_color(line3.nextLayer, TEXT_LINE_3_COLOR);
 }
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {}
 static void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {}
