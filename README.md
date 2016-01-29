@@ -1,6 +1,8 @@
 #DC's Text Watch Deluxe
 for Pebble Time Round smartwatch
 
+<i><a href="https://apps.getpebble.com/en_US/application/56ab1cfe6ca919990000000e">Pebble app store link</a></i>
+
 <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12547778/0b42de68-c307-11e5-8310-744512919e15.gif" ALT="Time_Slide.gif" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12535171/8369a7b0-c22f-11e5-948e-c2df00479a72.gif" ALT="Time_Dial.gif" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12535172/89fc4934-c22f-11e5-90aa-ebca46483f1a.gif" ALT="Seasons.gif" WIDTH=180 HEIGHT=180>
 
 <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12381789/d811c75a-bd45-11e5-9ceb-5e4b993f6339.png" ALT="Screenshot_1_0631_Summer.png" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12413112/4d01b632-be41-11e5-97d2-d9e387b711ea.png" ALT="surf.png" WIDTH=180 HEIGHT=180> --- <IMG SRC="https://cloud.githubusercontent.com/assets/16750280/12413115/4fe2e3ee-be41-11e5-9cf2-3ae9768d1a57.png" ALT="neapolitan.png" WIDTH=180 HEIGHT=180>
