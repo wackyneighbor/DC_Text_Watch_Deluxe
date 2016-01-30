@@ -78,6 +78,7 @@ Pebble.addEventListener('appmessage', function(e) {
 Pebble.addEventListener('showConfiguration', function(e) {
 	var SinglePrefixType = getStorageValue('SinglePrefixType', '2'); // Show O' before single digits
 	var ColorScheme = getStorageValue('ColorScheme', '1'); // Default black color scheme
+	var NoGPS = getStorageValue('NoGPS', '0'); // Default allow regular GPS updates
 	
 	// Define default values for custom color scheme 1, at time of installation
 	var BackgroundColor1 = getStorageValue('BackgroundColor1', 0xFFFFAA); // GColorPastelYellow
@@ -114,8 +115,9 @@ Pebble.addEventListener('showConfiguration', function(e) {
 	
 	var URL = 'http://wackyneighbor.github.io/DC_Text_Watch_Deluxe/config.html' +
 		'?' +
-		'SinglePrefixType=' + encodeURIComponent(SinglePrefixType) + '&' +
 		'ColorScheme=' + encodeURIComponent(ColorScheme) + '&' +
+		'SinglePrefixType=' + encodeURIComponent(SinglePrefixType) + '&' +
+		'NoGPS=' + encodeURIComponent(NoGPS) + '&' +
 		'BackgroundColor1=' + encodeURIComponent(padzeros(BackgroundColor1.toString(16).toUpperCase())) + '&' +
 		'TextLine1Color1=' + encodeURIComponent(padzeros(TextLine1Color1.toString(16).toUpperCase())) + '&' +
 		'TextLine2Color1=' + encodeURIComponent(padzeros(TextLine2Color1.toString(16).toUpperCase())) + '&' +
@@ -158,8 +160,9 @@ Pebble.addEventListener("webviewclosed", function(e) {
 		console.log(settings);
 	
 		// save new user selections so they can be shown on config page next time
-		localStorage.setItem('SinglePrefixType', settings.SinglePrefixType);
 		localStorage.setItem('ColorScheme', settings.ColorScheme);
+		localStorage.setItem('SinglePrefixType', settings.SinglePrefixType);
+		localStorage.setItem('NoGPS', settings.NoGPS);
 		localStorage.setItem('BackgroundColor1', settings.BackgroundColor1);
 		localStorage.setItem('TextLine1Color1', settings.TextLine1Color1);
 		localStorage.setItem('TextLine2Color1', settings.TextLine2Color1);

@@ -80,6 +80,7 @@ PropertyAnimation *scroll_up;
 
 static bool PoppedDownNow;
 static bool PoppedDownAtInit;
+static bool NoGPS;
 
 static GColor BACKGROUND_COLOR;
 static GColor TEXT_LINE_1_COLOR;
@@ -114,7 +115,8 @@ enum {
 	KEY_TEXT_DATE_COLOR = 11,
 	KEY_TIME_INDICATOR_COLOR = 12,
 	KEY_SUNRISE_INDICATOR_COLOR = 13,
-	KEY_SUNSET_INDICATOR_COLOR = 14
+	KEY_SUNSET_INDICATOR_COLOR = 14,
+	KEY_NOGPS = 15
 };
 
 // Persistent storage keys
@@ -135,7 +137,8 @@ enum {
 	TEXT_DATE_COLOR_STORED = 13,
 	TIME_INDICATOR_COLOR_STORED = 14,
 	SUNRISE_INDICATOR_COLOR_STORED = 15,
-	SUNSET_INDICATOR_COLOR_STORED = 16
+	SUNSET_INDICATOR_COLOR_STORED = 16,
+	NO_GPS_STORED = 17
 };
 
 // GPS update procedure
@@ -169,9 +172,12 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
 	int currX;
 	int radius = bounds.size.w/2;
 
-	// Update location if it's never been determined, and at the top of the hour thereafter
-	if(t->tm_min == 0 || lastUpdateTime == 0){
-	update_GPS();
+	// Update location if it's never been determined, and at the top of the hour thereafter, but only if option to
+	// disable hasn't been selected in config.html
+	if(NoGPS == false){
+		if(t->tm_min == 0 || lastUpdateTime == 0){
+			update_GPS();
+		}
 	}
 	
 	// Display sunrise & sunset indicators, but only if location has been succesfully determined
@@ -440,10 +446,13 @@ void configureLine3Layer(TextLayer *textlayer, bool right) {
         }
 }
 
-// Set up default configuration settings (colors & single digit prefix),
+// Set up default configuration settings (colors, single digit prefix, GPS disable),
 // for when user hasn't changed anything yet
 static void prime_settings(){
 
+	if (persist_exists(NO_GPS_STORED) == false){
+		persist_write_bool(NO_GPS_STORED, false); // Show O' prefix by default
+	}
 	if (persist_exists(SHOW_O_PREFIX_STORED) == false){
 		persist_write_bool(SHOW_O_PREFIX_STORED, true); // Show O' prefix by default
 	}
@@ -479,7 +488,7 @@ static void prime_settings(){
 	}
 }
 
-// Update color settings settings based on config page choices.
+// Update color & GPS settings settings based on config page choices.
 static void update_settings(){
 	BACKGROUND_COLOR = GColorFromHEX(persist_read_int(BACKGROUND_COLOR_STORED));
 	TEXT_LINE_1_COLOR = GColorFromHEX(persist_read_int(TEXT_LINE_1_COLOR_STORED));
@@ -490,6 +499,7 @@ static void update_settings(){
 	TIME_INDICATOR_COLOR = GColorFromHEX(persist_read_int(TIME_INDICATOR_COLOR_STORED));
 	SUNRISE_INDICATOR_COLOR = GColorFromHEX(persist_read_int(SUNRISE_INDICATOR_COLOR_STORED));
 	SUNSET_INDICATOR_COLOR = GColorFromHEX(persist_read_int(SUNSET_INDICATOR_COLOR_STORED));
+	NoGPS = persist_read_bool(NO_GPS_STORED);
 }
 
 // App communication with phone 
@@ -563,6 +573,12 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 			case KEY_SUNSET_INDICATOR_COLOR:
 			persist_write_int(SUNSET_INDICATOR_COLOR_STORED, t->value->uint32);
 			break;
+			case KEY_NOGPS:
+			if (t->value->uint8==0){
+				persist_write_bool(NO_GPS_STORED, false);
+			} else if (t->value->uint8==1){
+				persist_write_bool(NO_GPS_STORED, true);
+			}
 			default:
 			APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
 		}

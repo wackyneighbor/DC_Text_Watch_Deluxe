@@ -3,6 +3,7 @@
         "KEY_BACKGROUND_COLOR": 6,
         "KEY_LATITUDE": 1,
         "KEY_LONGITUDE": 2,
+        "KEY_NOGPS": 15,
         "KEY_SINGLE_PREFIX_TYPE": 5,
         "KEY_SUNRISE_INDICATOR_COLOR": 13,
         "KEY_SUNSET_INDICATOR_COLOR": 14,
@@ -39,7 +40,7 @@
         "chalk"
     ],
     "uuid": "3fcc066a-6800-4eb0-82ef-6305ad73eb5d",
-    "versionLabel": "1.0",
+    "versionLabel": "1.1",
     "watchapp": {
         "watchface": true
     }
