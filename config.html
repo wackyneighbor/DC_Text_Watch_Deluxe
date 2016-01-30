@@ -25,15 +25,6 @@
   <div class="item-container-header">Watch Display Options</div>
   <div class="item-container-content">
     <label class="item">
-      Single Digit Prefix
-      <select id="SinglePrefixTypeMenu" dir='rtl' class="item-select">
-        <option class="item-select-option" value="1" >none</option>
-        <option class="item-select-option" value="2" >O apostrophe</option>
-        <option class="item-select-option" value="3" >Oh - on new line</option>
-      </select>
-    </label>
-
-    <label class="item">
       Color Scheme
       <select id="ColorSchemeMenu" dir='rtl' class="item-select">
         <option class="item-select-option" value="1" >Default</option>
@@ -43,8 +34,26 @@
         <option class="item-select-option" value="5" >Custom Scheme 3</option>
       </select>
     </label>
+    <label class="item">
+      Single Digit Prefix
+      <select id="SinglePrefixTypeMenu" dir='rtl' class="item-select">
+        <option class="item-select-option" value="1" >none</option>
+        <option class="item-select-option" value="2" >O apostrophe</option>
+        <option class="item-select-option" value="3" >Oh - on new line</option>
+      </select>
+    </label>
+    <label class="item">
+      Disable location requests<br>
+      <small><small>Sunrise & sunset indicators will not appear until location has been initially determined.  If hourly updates deplete phone's battery, select to lock current location.  <i>Although watch does not request "highly accurrate" location, it may still wake GPS from standby on certain phones when "location services" is enabled.</i></small></small> 
+      <input type="checkbox" class="item-checkbox" id="NoGPScheckbox">
+    </label>
   </div>
 </div>
+
+    <div class="item-container">
+      <div class="button-container">
+        <input id="submit_button2" type="button" class="item-button" value="Save Changes">
+      </div>
 
     <div class="item-container">
       <div class="item-container-header">Custom Color Scheme 1</div>
@@ -91,7 +100,7 @@
 
     <div class="item-container">
       <div class="button-container">
-        <input id="submit_button2" type="button" class="item-button" value="Save Changes">
+        <input id="submit_button3" type="button" class="item-button" value="Save Changes">
       </div>
 
     <div class="item-container">
@@ -139,7 +148,7 @@
 
     <div class="item-container">
       <div class="button-container">
-        <input id="submit_button3" type="button" class="item-button" value="Save Changes">
+        <input id="submit_button4" type="button" class="item-button" value="Save Changes">
       </div>
 
     <div class="item-container">
@@ -187,7 +196,7 @@
 
     <div class="item-container">
       <div class="button-container">
-        <input id="submit_button4" type="button" class="item-button" value="Save Changes">
+        <input id="submit_button5" type="button" class="item-button" value="Save Changes">
       </div>
 <!-- Start of StatCounter Code for Default Guide -->
 <script type="text/javascript">
@@ -237,10 +246,45 @@ alt="shopify analytics ecommerce"></a></div></noscript>
     }
   }
 
+ function getBoolValue(in_value) {
+    var result=false;
+
+    switch (in_value) {
+        case true:
+        case 'true':
+        case 'True':
+        case 'TRUE':
+        case 1:
+        case '1':
+        case 'on':
+            result = true;
+            break;
+        default:
+            result = false;
+            break;
+    }
+    return result;
+  }
+
+ function sendBoolValue(in_value) {
+    var result='0';
+
+    switch (in_value) {
+        case true:
+            result = '1';
+            break;
+        default:
+            result = '0';
+            break;
+    }
+    return result;
+  }
+
   function getConfigData() {
     var settings = {
-      'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu').value,
       'ColorScheme': document.getElementById('ColorSchemeMenu').value,
+      'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu').value,
+      'NoGPS': sendBoolValue(document.getElementById('NoGPScheckbox').checked),	  
       'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
       'TextLine1Color1': getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
       'TextLine2Color1': getHexStrColorWithOut0x(document.getElementById('TextLine2Color1Picker').value),
@@ -321,6 +365,15 @@ alt="shopify analytics ecommerce"></a></div></noscript>
     var return_to = getQueryParam('return_to', 'pebblejs://close#');
     document.location = return_to + encodeURIComponent(JSON.stringify(getConfigData()));
   });
+  
+   var submitButton = document.getElementById('submit_button5');
+  submitButton.addEventListener('click', function() {
+    console.log('Submit');
+
+    // Set the return URL depending on the runtime environment
+    var return_to = getQueryParam('return_to', 'pebblejs://close#');
+    document.location = return_to + encodeURIComponent(JSON.stringify(getConfigData()));
+  });
 
   (function() {
         // as of 2015-08 not part of Chrome/Webkit in Pebble for Android
@@ -332,8 +385,9 @@ alt="shopify analytics ecommerce"></a></div></noscript>
         }
 
     // pick URL parameters...
-    document.getElementById('SinglePrefixTypeMenu').value = getQueryParam('SinglePrefixType', '2');
     document.getElementById('ColorSchemeMenu').value = getQueryParam('ColorScheme', '1');
+    document.getElementById('SinglePrefixTypeMenu').value = getQueryParam('SinglePrefixType', '2');
+    document.getElementById('NoGPScheckbox').checked = getBoolValue(getQueryParam('NoGPS', '0'));
     document.getElementById('BackgroundColor1Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor1', '#000000'));
     document.getElementById('TextLine1Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine1Color1', '#FFFFFF'));
     document.getElementById('TextLine2Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine2Color1', '#FFFFFF'));
