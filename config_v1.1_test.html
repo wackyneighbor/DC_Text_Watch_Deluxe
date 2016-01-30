@@ -251,11 +251,25 @@
     return result;
   }
 
+ function sendBoolValue(in_value) {
+    var result='0';
+
+    switch (in_value) {
+        case true:
+            result = '1';
+            break;
+        default:
+            result = '0';
+            break;
+    }
+    return result;
+  }
+
   function getConfigData() {
     var settings = {
       'ColorScheme': document.getElementById('ColorSchemeMenu').value,
       'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu').value,
-	  'NoGPS': document.getElementById('NoGPScheckbox').checked,	  
+	  'NoGPS': sendBoolValue(document.getElementById('NoGPScheckbox').checked),	  
       'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
       'TextLine1Color1': getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
       'TextLine2Color1': getHexStrColorWithOut0x(document.getElementById('TextLine2Color1Picker').value),
