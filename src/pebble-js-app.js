@@ -223,7 +223,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
 			TextLine3Color = 0x000000; // GColorBlack
 			TextDayColor = 0x000000; // GColorBlack
 			TextDateColor = 0x000000; // GColorBlack
-			TimeIndicatorColor = 0xAAAA00; // GColorLimerick
+			TimeIndicatorColor = 0xFFAA00; // GColorChromeYellow   
 			SunriseIndicatorColor = 0x555555; // GColorDarkGray
 			SunsetIndicatorColor = 0x555555; // GColorDarkGray
 
@@ -237,7 +237,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
 			TextDateColor = parseInt(settings.TextDateColor1, 16);
 			TimeIndicatorColor = parseInt(settings.TimeIndicatorColor1, 16);
 			SunriseIndicatorColor = parseInt(settings.SunriseIndicatorColor1, 16);
-			SunsetIndicatorColor =  parseInt(settings.SunriseIndicatorColor1, 16);
+			SunsetIndicatorColor =  parseInt(settings.SunsetIndicatorColor1, 16);
 
 			// Setup custom color scheme 2
 		} else if (settings.ColorScheme == "4"){
@@ -249,7 +249,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
 			TextDateColor = parseInt(settings.TextDateColor2, 16);
 			TimeIndicatorColor = parseInt(settings.TimeIndicatorColor2, 16);
 			SunriseIndicatorColor = parseInt(settings.SunriseIndicatorColor2, 16);
-			SunsetIndicatorColor =  parseInt(settings.SunriseIndicatorColor2, 16);
+			SunsetIndicatorColor =  parseInt(settings.SunsetIndicatorColor2, 16);
 
 			// Setup custom color scheme 3
 		} else if (settings.ColorScheme == "5"){
@@ -261,7 +261,7 @@ Pebble.addEventListener("webviewclosed", function(e) {
 			TextDateColor = parseInt(settings.TextDateColor3, 16);
 			TimeIndicatorColor = parseInt(settings.TimeIndicatorColor3, 16);
 			SunriseIndicatorColor = parseInt(settings.SunriseIndicatorColor3, 16);
-			SunsetIndicatorColor =  parseInt(settings.SunriseIndicatorColor3, 16);
+			SunsetIndicatorColor =  parseInt(settings.SunsetIndicatorColor3, 16);
 			}
 		
 		Pebble.sendAppMessage({"KEY_SINGLE_PREFIX_TYPE" : parseInt(settings.SinglePrefixType, 10),

@@ -21,6 +21,7 @@
         "configurable"
     ],
     "companyName": "DC",
+    "enableMultiJS": false,
     "longName": "Text Watch Deluxe",
     "projectType": "native",
     "resources": {
@@ -40,7 +41,7 @@
         "chalk"
     ],
     "uuid": "3fcc066a-6800-4eb0-82ef-6305ad73eb5d",
-    "versionLabel": "1.1",
+    "versionLabel": "1.2",
     "watchapp": {
         "watchface": true
     }
