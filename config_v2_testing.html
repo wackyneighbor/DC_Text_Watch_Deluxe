@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+  <title>DC's Text Watch Deluxe config page</title>
+  <link rel="stylesheet" href="slate.css">
+  <script type="text/javascript" src="slate.js"></script>
+</head>
+<body>
+
+    <div class="item-container">
+      <div class="item-container-content">
+        <div class="item">
+          <h2>DC's Text Watch Deluxe</h2>
+          configuration options
+        </div>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="button-container">
+        <input id="submit_button1" type="button" class="item-button" value="Save Changes">
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-container-header">Watch Display Options</div>
+      <div class="item-container-content">
+        <label class="item">
+          Color Scheme
+          <select id="ColorSchemeMenu" dir="rtl" class="item-select">
+            <option class="item-select-option" value="1">Default</option>
+            <option class="item-select-option" value="2">Inverted</option>
+            <option class="item-select-option" value="3">Custom Scheme 1</option>
+            <option class="item-select-option" value="4">Custom Scheme 2</option>
+            <option class="item-select-option" value="5">Custom Scheme 3</option>
+          </select>
+        </label>
+        <label class="item">
+          Single Digit Prefix
+          <select id="SinglePrefixTypeMenu" dir="rtl" class="item-select">
+            <option class="item-select-option" value="1">none</option>
+            <option class="item-select-option" value="2">O'</option>
+            <option class="item-select-option" value="3">Oh - on new line</option>
+          </select>
+        </label>
+        <label class="item">
+          Time text position &amp; alignment (rectangular watches only)<br>
+          <small><small>On round watches, text is always centered vertically and horizontally. The "top" options disable vertical animation when switching between 2 and 3 lines.</small></small>
+          <select id="TimePositionMenu" dir="rtl" class="item-select">
+            <option class="item-select-option" value="1_1">Top Left</option>
+            <option class="item-select-option" value="1_2">Top Center</option>
+            <option class="item-select-option" value="1_3">Top Right</option>
+            <option class="item-select-option" value="2_1">Middle Left</option>
+            <option class="item-select-option" value="2_2">Middle Center</option>
+            <option class="item-select-option" value="2_3">Middle Right</option>
+          </select>
+        </label>
+        <label class="item">
+          Day &amp; date alignment (rectangular watches only)<br>
+          <small><small>On round watches, day and date are always centered.</small></small>
+          <select id="DateJustifyMenu" dir="rtl" class="item-select">
+            <option class="item-select-option" value="1">Left</option>
+            <option class="item-select-option" value="2">Centered</option>
+            <option class="item-select-option" value="3">Right</option>
+          </select>
+        </label>
+        <label class="item">
+          Enlarge fonts &amp; indicators for higher-res screens<br>
+          <small><small>Scales time text and perimeter indicator proportionally on Pebble Time 2 (200&times;228) and Round 2 (260&times;260). No effect on smaller watches.</small></small>
+          <input type="checkbox" class="item-checkbox" id="EnlargeFontsCheckbox">
+        </label>
+        <label class="item">
+          Disable location requests<br>
+          <small><small>Sunrise &amp; sunset indicators will not appear until location has been initially determined. If hourly updates deplete phone's battery, select to lock current location. <i>Although watch does not request "highly accurrate" location, it may still wake GPS from standby on certain phones when "location services" is enabled.</i></small></small>
+          <input type="checkbox" class="item-checkbox" id="NoGPScheckbox">
+        </label>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="button-container">
+        <input id="submit_button2" type="button" class="item-button" value="Save Changes">
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-container-header">Custom Color Scheme 1</div>
+      <div class="item-container-content">
+        <label class="item">Background<input type="text" class="item-color item-color-normal" id="BackgroundColor1Picker" value="#000000"></label>
+        <label class="item">Text line 1 (current hour)<input type="text" class="item-color item-color-normal" id="TextLine1Color1Picker" value="#FFFFFF"></label>
+        <label class="item">Text line 2<input type="text" class="item-color item-color-normal" id="TextLine2Color1Picker" value="#FFFFFF"></label>
+        <label class="item">Text line 3 (when available)<input type="text" class="item-color item-color-normal" id="TextLine3Color1Picker" value="#FFFFFF"></label>
+        <label class="item">Day of the week<input type="text" class="item-color item-color-normal" id="TextDayColor1Picker" value="#FFFFFF"></label>
+        <label class="item">Date<input type="text" class="item-color item-color-normal" id="TextDateColor1Picker" value="#FFFFFF"></label>
+        <label class="item">Analog current time indicator<br><small><small>choose a color that contrasts with the date line, as it will pass behind for several hours around midnight</small></small><input type="text" class="item-color item-color-normal" id="TimeIndicatorColor1Picker" value="#AAAA00"></label>
+        <label class="item">Sunrise time indicator<input type="text" class="item-color item-color-normal" id="SunriseIndicatorColor1Picker" value="#AAAAAA"></label>
+        <label class="item">Sunset time indicator<input type="text" class="item-color item-color-normal" id="SunsetIndicatorColor1Picker" value="#AAAAAA"></label>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="button-container">
+        <input id="submit_button3" type="button" class="item-button" value="Save Changes">
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-container-header">Custom Color Scheme 2</div>
+      <div class="item-container-content">
+        <label class="item">Background<input type="text" class="item-color item-color-normal" id="BackgroundColor2Picker" value="#000000"></label>
+        <label class="item">Text line 1 (current hour)<input type="text" class="item-color item-color-normal" id="TextLine1Color2Picker" value="#FFFFFF"></label>
+        <label class="item">Text line 2<input type="text" class="item-color item-color-normal" id="TextLine2Color2Picker" value="#FFFFFF"></label>
+        <label class="item">Text line 3 (when available)<input type="text" class="item-color item-color-normal" id="TextLine3Color2Picker" value="#FFFFFF"></label>
+        <label class="item">Day of the week<input type="text" class="item-color item-color-normal" id="TextDayColor2Picker" value="#FFFFFF"></label>
+        <label class="item">Date<input type="text" class="item-color item-color-normal" id="TextDateColor2Picker" value="#FFFFFF"></label>
+        <label class="item">Analog current time indicator<br><small><small>choose a color that contrasts with the date line, as it will pass behind for several hours around midnight</small></small><input type="text" class="item-color item-color-normal" id="TimeIndicatorColor2Picker" value="#AAAA00"></label>
+        <label class="item">Sunrise time indicator<input type="text" class="item-color item-color-normal" id="SunriseIndicatorColor2Picker" value="#AAAAAA"></label>
+        <label class="item">Sunset time indicator<input type="text" class="item-color item-color-normal" id="SunsetIndicatorColor2Picker" value="#AAAAAA"></label>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="button-container">
+        <input id="submit_button4" type="button" class="item-button" value="Save Changes">
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="item-container-header">Custom Color Scheme 3</div>
+      <div class="item-container-content">
+        <label class="item">Background<input type="text" class="item-color item-color-normal" id="BackgroundColor3Picker" value="#000000"></label>
+        <label class="item">Text line 1 (current hour)<input type="text" class="item-color item-color-normal" id="TextLine1Color3Picker" value="#FFFFFF"></label>
+        <label class="item">Text line 2<input type="text" class="item-color item-color-normal" id="TextLine2Color3Picker" value="#FFFFFF"></label>
+        <label class="item">Text line 3 (when available)<input type="text" class="item-color item-color-normal" id="TextLine3Color3Picker" value="#FFFFFF"></label>
+        <label class="item">Day of the week<input type="text" class="item-color item-color-normal" id="TextDayColor3Picker" value="#FFFFFF"></label>
+        <label class="item">Date<input type="text" class="item-color item-color-normal" id="TextDateColor3Picker" value="#FFFFFF"></label>
+        <label class="item">Analog current time indicator<br><small><small>choose a color that contrasts with the date line, as it will pass behind for several hours around midnight</small></small><input type="text" class="item-color item-color-normal" id="TimeIndicatorColor3Picker" value="#AAAA00"></label>
+        <label class="item">Sunrise time indicator<input type="text" class="item-color item-color-normal" id="SunriseIndicatorColor3Picker" value="#AAAAAA"></label>
+        <label class="item">Sunset time indicator<input type="text" class="item-color item-color-normal" id="SunsetIndicatorColor3Picker" value="#AAAAAA"></label>
+      </div>
+    </div>
+
+    <div class="item-container">
+      <div class="button-container">
+        <input id="submit_button5" type="button" class="item-button" value="Save Changes">
+      </div>
+    </div>
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=10801201;
+var sc_invisible=1;
+var sc_security="1ac1df64";
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="shopify analytics ecommerce"
+href="http://statcounter.com/shopify/" target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/10801201/0/1ac1df64/1/"
+alt="shopify analytics ecommerce"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+  <script>
+  function getHexStrColorWith0x(s){return s.startsWith('0x')?s:'0x'+s;}
+  function getHexStrColorWithOut0x(s){return s.startsWith('0x')?s.substr(2,6):s;}
+  function getBoolValue(v){
+    switch(v){case true:case'true':case'True':case'TRUE':case 1:case'1':case'on':return true;default:return false;}
+  }
+  function sendBoolValue(v){return v===true?'1':'0';}
+
+  function getConfigData() {
+    /* Decode the combined time position menu value "valign_halign" */
+    var pos = document.getElementById('TimePositionMenu').value.split('_');
+    var settings = {
+      'ColorScheme':            document.getElementById('ColorSchemeMenu').value,
+      'SinglePrefixType':       document.getElementById('SinglePrefixTypeMenu').value,
+      'NoGPS':                  sendBoolValue(document.getElementById('NoGPScheckbox').checked),
+      /* New v2 layout keys */
+      'TextVAlign':             pos[0],
+      'TextJustify':            pos[1],
+      'DateJustify':            document.getElementById('DateJustifyMenu').value,
+      'EnlargeFonts':           sendBoolValue(document.getElementById('EnlargeFontsCheckbox').checked),
+      /* Colors */
+      'BackgroundColor1':       getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
+      'TextLine1Color1':        getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
+      'TextLine2Color1':        getHexStrColorWithOut0x(document.getElementById('TextLine2Color1Picker').value),
+      'TextLine3Color1':        getHexStrColorWithOut0x(document.getElementById('TextLine3Color1Picker').value),
+      'TextDayColor1':          getHexStrColorWithOut0x(document.getElementById('TextDayColor1Picker').value),
+      'TextDateColor1':         getHexStrColorWithOut0x(document.getElementById('TextDateColor1Picker').value),
+      'TimeIndicatorColor1':    getHexStrColorWithOut0x(document.getElementById('TimeIndicatorColor1Picker').value),
+      'SunriseIndicatorColor1': getHexStrColorWithOut0x(document.getElementById('SunriseIndicatorColor1Picker').value),
+      'SunsetIndicatorColor1':  getHexStrColorWithOut0x(document.getElementById('SunsetIndicatorColor1Picker').value),
+      'BackgroundColor2':       getHexStrColorWithOut0x(document.getElementById('BackgroundColor2Picker').value),
+      'TextLine1Color2':        getHexStrColorWithOut0x(document.getElementById('TextLine1Color2Picker').value),
+      'TextLine2Color2':        getHexStrColorWithOut0x(document.getElementById('TextLine2Color2Picker').value),
+      'TextLine3Color2':        getHexStrColorWithOut0x(document.getElementById('TextLine3Color2Picker').value),
+      'TextDayColor2':          getHexStrColorWithOut0x(document.getElementById('TextDayColor2Picker').value),
+      'TextDateColor2':         getHexStrColorWithOut0x(document.getElementById('TextDateColor2Picker').value),
+      'TimeIndicatorColor2':    getHexStrColorWithOut0x(document.getElementById('TimeIndicatorColor2Picker').value),
+      'SunriseIndicatorColor2': getHexStrColorWithOut0x(document.getElementById('SunriseIndicatorColor2Picker').value),
+      'SunsetIndicatorColor2':  getHexStrColorWithOut0x(document.getElementById('SunsetIndicatorColor2Picker').value),
+      'BackgroundColor3':       getHexStrColorWithOut0x(document.getElementById('BackgroundColor3Picker').value),
+      'TextLine1Color3':        getHexStrColorWithOut0x(document.getElementById('TextLine1Color3Picker').value),
+      'TextLine2Color3':        getHexStrColorWithOut0x(document.getElementById('TextLine2Color3Picker').value),
+      'TextLine3Color3':        getHexStrColorWithOut0x(document.getElementById('TextLine3Color3Picker').value),
+      'TextDayColor3':          getHexStrColorWithOut0x(document.getElementById('TextDayColor3Picker').value),
+      'TextDateColor3':         getHexStrColorWithOut0x(document.getElementById('TextDateColor3Picker').value),
+      'TimeIndicatorColor3':    getHexStrColorWithOut0x(document.getElementById('TimeIndicatorColor3Picker').value),
+      'SunriseIndicatorColor3': getHexStrColorWithOut0x(document.getElementById('SunriseIndicatorColor3Picker').value),
+      'SunsetIndicatorColor3':  getHexStrColorWithOut0x(document.getElementById('SunsetIndicatorColor3Picker').value)
+    };
+    console.log('Got options: '+JSON.stringify(settings));
+    return settings;
+  }
+
+  function getQueryParam(variable, defaultValue) {
+    var query=location.search.substring(1), vars=query.split('&');
+    for(var i=0;i<vars.length;i++){var pair=vars[i].split('=');
+      if(pair[0]===variable)return decodeURIComponent(pair[1]);}
+    return defaultValue||false;
+  }
+
+  ['submit_button1','submit_button2','submit_button3','submit_button4','submit_button5']
+    .forEach(function(id){
+      document.getElementById(id).addEventListener('click',function(){
+        var return_to=getQueryParam('return_to','pebblejs://close#');
+        document.location=return_to+encodeURIComponent(JSON.stringify(getConfigData()));
+      });
+    });
+
+  (function(){
+    if(typeof String.prototype.startsWith!='function'){
+      String.prototype.startsWith=function(s){return this.indexOf(s)===0;};}
+
+    document.getElementById('ColorSchemeMenu').value      = getQueryParam('ColorScheme','1');
+    document.getElementById('SinglePrefixTypeMenu').value = getQueryParam('SinglePrefixType','2');
+    document.getElementById('DateJustifyMenu').value      = getQueryParam('DateJustify','2');
+    document.getElementById('EnlargeFontsCheckbox').checked = getBoolValue(getQueryParam('EnlargeFonts','0'));
+    document.getElementById('NoGPScheckbox').checked        = getBoolValue(getQueryParam('NoGPS','0'));
+
+    /* Reconstruct combined time position value from separate valign + halign params */
+    var va = getQueryParam('TextVAlign','2');
+    var ha = getQueryParam('TextJustify','2');
+    document.getElementById('TimePositionMenu').value = va + '_' + ha;
+
+    /* Color pickers */
+    function cp(id,def){return document.getElementById(id).value=getHexStrColorWith0x(getQueryParam(id.replace('Picker',''),def));}
+    cp('BackgroundColor1Picker','#000000');
+    cp('TextLine1Color1Picker','#FFFFFF'); cp('TextLine2Color1Picker','#FFFFFF'); cp('TextLine3Color1Picker','#FFFFFF');
+    cp('TextDayColor1Picker','#FFFFFF');   cp('TextDateColor1Picker','#FFFFFF');
+    cp('TimeIndicatorColor1Picker','#AAAA00');
+    cp('SunriseIndicatorColor1Picker','#AAAAAA'); cp('SunsetIndicatorColor1Picker','#AAAAAA');
+    cp('BackgroundColor2Picker','#000000');
+    cp('TextLine1Color2Picker','#FFFFFF'); cp('TextLine2Color2Picker','#FFFFFF'); cp('TextLine3Color2Picker','#FFFFFF');
+    cp('TextDayColor2Picker','#FFFFFF');   cp('TextDateColor2Picker','#FFFFFF');
+    cp('TimeIndicatorColor2Picker','#AAAA00');
+    cp('SunriseIndicatorColor2Picker','#AAAAAA'); cp('SunsetIndicatorColor2Picker','#AAAAAA');
+    cp('BackgroundColor3Picker','#000000');
+    cp('TextLine1Color3Picker','#FFFFFF'); cp('TextLine2Color3Picker','#FFFFFF'); cp('TextLine3Color3Picker','#FFFFFF');
+    cp('TextDayColor3Picker','#FFFFFF');   cp('TextDateColor3Picker','#FFFFFF');
+    cp('TimeIndicatorColor3Picker','#AAAA00');
+    cp('SunriseIndicatorColor3Picker','#AAAAAA'); cp('SunsetIndicatorColor3Picker','#AAAAAA');
+  })();
+  </script>
+
+</body>
+</html>
