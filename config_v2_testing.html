@@ -45,12 +45,12 @@
     <label class="item">
       Larger fonts on high-res watches<br>
       <small><small>Also increases size of analog elements along perimeter. If unchecked, original sizes will be used, with more empty space.</small></small>
-      <input type="checkbox" class="item-checkbox" id="enlarge">
+      <input type="checkbox" class="item-checkbox" id="EnlargeCheckbox">
     </label>
     <label class="item">
       Time text postion<br>
       <small><small>This setting affects rectangular watches only; is always "Middle Center" on round watches. When updating between 2 and 3 lines, there will be a vertical animation if a "middle" option is selected.</small></small>
-      <select id="Rect_time_align" dir='rtl' class="item-select">
+      <select id="RectTimeAlignMenu" dir='rtl' class="item-select">
         <option class="item-select-option" value="1" >Top Left</option>
         <option class="item-select-option" value="2" >Top Center</option>
         <option class="item-select-option" value="3" >Top Right</option>
@@ -62,7 +62,7 @@
     <label class="item">
       Day & Date text postion<br>
       <small><small>This setting affects rectangular watches only; is always "Centered" on round watches.</small></small>
-      <select id="Rect_date_align" dir='rtl' class="item-select">
+      <select id="RectDateAlignMenu" dir='rtl' class="item-select">
         <option class="item-select-option" value="1" >Left</option>
         <option class="item-select-option" value="2" >Centered</option>
         <option class="item-select-option" value="3" >Right</option>
@@ -310,9 +310,9 @@ alt="shopify analytics ecommerce"></a></div></noscript>
     var settings = {
       'ColorScheme': document.getElementById('ColorSchemeMenu').value,
       'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu').value,
-      'enlarge': document.getElementById('enlarge').value,
-      'Rect_time_align': document.getElementById('Rect_time_align').value,
-      'Rect_date_align': document.getElementById('Rect_date_align').value,
+      'Enlarge': document.getElementById('EnlargeCheckbox').value,
+      'RectTimeAlign': document.getElementById('RectTimeAlignMenu').value,
+      'RectDateAlign': document.getElementById('RectDateAlignMenu').value,
       'NoGPS': sendBoolValue(document.getElementById('NoGPScheckbox').checked),	  
       'BackgroundColor1': getHexStrColorWithOut0x(document.getElementById('BackgroundColor1Picker').value),
       'TextLine1Color1': getHexStrColorWithOut0x(document.getElementById('TextLine1Color1Picker').value),
@@ -416,9 +416,9 @@ alt="shopify analytics ecommerce"></a></div></noscript>
     // pick URL parameters...
     document.getElementById('ColorSchemeMenu').value = getQueryParam('ColorScheme', '1');
     document.getElementById('SinglePrefixTypeMenu').value = getQueryParam('SinglePrefixType', '2');
-    document.getElementById('enlarge').checked = getBoolValue(getQueryParam('enlarge', '1'));
-    document.getElementById('Rect_time_align').value = getQueryParam('Rect_time_align', '5');
-    document.getElementById('Rect_date_align').value = getQueryParam('Rect_date_align', '2');
+    document.getElementById('EnlargeCheckbox').checked = getBoolValue(getQueryParam('Enlarge', '1'));
+    document.getElementById('RectTimeAlignMenu').value = getQueryParam('RectTimeAlign', '5');
+    document.getElementById('RectDateAlignMenu').value = getQueryParam('RectDateAlign', '2');
     document.getElementById('NoGPScheckbox').checked = getBoolValue(getQueryParam('NoGPS', '0'));
     document.getElementById('BackgroundColor1Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor1', '#000000'));
     document.getElementById('TextLine1Color1Picker').value = getHexStrColorWith0x(getQueryParam('TextLine1Color1', '#FFFFFF'));
