@@ -75,9 +75,11 @@ button.item-button {
   height: auto;
   padding: 6px 10px;
 }
-.item small {
+.item small, .button-container small {
   line-height: 1.2;
   display: block;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 </style>
 </head>
@@ -130,7 +132,7 @@ button.item-button {
       </select>
     </label>
     <label class="item">
-      Day of Week & Date Justification<br>
+      Day & Date Justification<br>
       <select id="RectDateAlignMenu" dir='rtl' class="item-select">
         <option class="item-select-option" value="1" >Left</option>
         <option class="item-select-option" value="2" >Centered</option>
