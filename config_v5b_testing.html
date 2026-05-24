@@ -71,6 +71,14 @@
   max-height: 0;
   opacity: 0;
 }
+button.item-button {
+  height: auto;
+  padding: 6px 10px;
+}
+.item small {
+  line-height: 1.2;
+  display: block;
+}
 </style>
 </head>
 <body>
@@ -84,7 +92,7 @@
     </div>
     <div class="item-container">
       <div class="button-container">
-        <input id="run_demo_button" type="button" class="item-button" value="Demonstrate Perimeter Analog Elements"><br>
+        <button id="run_demo_button" class="item-button">Demonstrate Perimeter<br>Analog Elements</button><br>
         <small><small>Short demo is displayed on watch. Illustrates daily orbit of current time indicator, and seasonal drift of sunrise and sunset tick marks.</i></small></small>
       </div>
     </div>
@@ -142,7 +150,7 @@
       <small><small>If unchecked, original system fonts will be used. Also rescales perimeter analog elements.<i>(Setting ignored on lower resolution watches.)</i></small></small>
       <input type="checkbox" class="item-checkbox" id="EnlargeCheckbox">
     </label>
-    <label class="item">
+    <label class="item" style="padding-bottom: 0;">
       Perimeter Analog Elements<br>
       <small><small>Disable if you just want the text watch, without extra perimeter clutter.</i></small></small> 
       <input type="checkbox" class="item-checkbox" id="AnalogElementscheckbox">
