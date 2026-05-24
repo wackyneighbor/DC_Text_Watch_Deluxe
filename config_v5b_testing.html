@@ -85,6 +85,15 @@ button.item-button {
 .item:has(.item-color) small {
   padding-right: 30px;
 }
+.item-container:has(.item-button) {
+  margin-bottom: 0px;
+  margin-top: 0;
+  border-top: 1px solid rgba(0, 0, 0, 1);
+}
+.button-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 </style>
 </head>
 <body>
@@ -102,7 +111,6 @@ button.item-button {
         <small><small>Short demo is displayed on watch. Illustrates daily orbit of current time indicator, and seasonal drift of sunrise and sunset tick marks.</i></small></small>
       </div>
     </div>
-    <hr class="divider">
     <div class="item-container">
       <div class="button-container">
         <input id="submit_button1" type="button" class="item-button" value="Save Changes">
