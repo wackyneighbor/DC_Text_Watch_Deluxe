@@ -137,7 +137,7 @@ button.item-button {
     </label>
     <label class="item">
       Time Text Justification<br>
-      <select id="RectTimeAlignMenu" dir='rtl' class="item-select">
+      <select id="TimeAlignMenu" dir='rtl' class="item-select">
         <option class="item-select-option" value="1" >Top Left</option>
         <option class="item-select-option" value="2" >Top Center</option>
         <option class="item-select-option" value="3" >Top Right</option>
@@ -148,7 +148,7 @@ button.item-button {
     </label>
     <label class="item">
       Day & Date Justification<br>
-      <select id="RectDateAlignMenu" dir='rtl' class="item-select">
+      <select id="DateAlignMenu" dir='rtl' class="item-select">
         <option class="item-select-option" value="1" >Left</option>
         <option class="item-select-option" value="2" >Centered</option>
         <option class="item-select-option" value="3" >Right</option>
@@ -406,8 +406,8 @@ referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
       'ColorScheme': document.getElementById('ColorSchemeMenu').value,
       'SinglePrefixType': document.getElementById('SinglePrefixTypeMenu').value,
       'Enlarge': document.getElementById('EnlargeCheckbox').checked,
-      'RectTimeAlign': document.getElementById('RectTimeAlignMenu').value,
-      'RectDateAlign': document.getElementById('RectDateAlignMenu').value,
+      'TimeAlign': document.getElementById('TimeAlignMenu').value,
+      'DateAlign': document.getElementById('DateAlignMenu').value,
       'NoGPS': sendBoolValue(document.getElementById('NoGPScheckbox').checked),
       'AnalogElements': sendBoolValue(document.getElementById('AnalogElementscheckbox').checked),
       'start_demo_now': '0',
@@ -543,8 +543,8 @@ function sendConfig() {
     document.getElementById('ColorSchemeMenu').value = getQueryParam('ColorScheme', '1');
     document.getElementById('SinglePrefixTypeMenu').value = getQueryParam('SinglePrefixType', '2');
     document.getElementById('EnlargeCheckbox').checked = getBoolValue(getQueryParam('Enlarge', '1'));
-    document.getElementById('RectTimeAlignMenu').value = getQueryParam('RectTimeAlign', '5');
-    document.getElementById('RectDateAlignMenu').value = getQueryParam('RectDateAlign', '2');
+    document.getElementById('TimeAlignMenu').value = getQueryParam('TimeAlign', '5');
+    document.getElementById('DateAlignMenu').value = getQueryParam('DateAlign', '2');
     document.getElementById('NoGPScheckbox').checked = getBoolValue(getQueryParam('NoGPS', '0'));
     document.getElementById('AnalogElementscheckbox').checked = getBoolValue(getQueryParam('AnalogElements', '1'));
     document.getElementById('BackgroundColor1Picker').value = getHexStrColorWith0x(getQueryParam('BackgroundColor1', '#000000'));
@@ -572,7 +572,7 @@ function sendConfig() {
     document.getElementById('TextDayColor3Picker').value = getHexStrColorWith0x(getQueryParam('TextDayColor3', '#FFFFFF'));
     document.getElementById('TextDateColor3Picker').value = getHexStrColorWith0x(getQueryParam('TextDateColor3', '#FFFFFF'));
     document.getElementById('TimeIndicatorColor3Picker').value = getHexStrColorWith0x(getQueryParam('TimeIndicatorColor3', '#AAAA00'));
-    document.getElementById('SunriseIndicatorColor3Picker').value = getHexStrColorWith0x(getQueryParam('SunriseIndicatorColor3', '#AAAAAA'));
+    document.getElementById('SunriseIndicatorColor3Picker').value = gtHexStrColorWith0x(getQueryParam('SunriseIndicatorColor3', '#AAAAAA'));
     document.getElementById('SunsetIndicatorColor3Picker').value = getHexStrColorWith0x(getQueryParam('SunsetIndicatorColor3', '#AAAAAA'));
 
 document.getElementById('AnalogElementscheckbox')
