@@ -94,6 +94,9 @@ button.item-button {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.analog-disabled .analog-only {
+  display: none;
+}
 </style>
 </head>
 <body>
@@ -207,16 +210,16 @@ button.item-button {
           Date
           <input type="text" class="item-color item-color-normal" id="TextDateColor1Picker" value="#FFFFFF">
         </label>
-        <label class="item">
+        <label class="item analog-only">
           Analog current time indicator<br>
           <small><small>Choose a color that contrasts with the date line, as it will pass behind for several hours around midnight</small></small>
           <input type="text" class="item-color item-color-normal" id="TimeIndicatorColor1Picker" value="#AAAA00">
         </label>
-        <label class="item">
+        <label class="item analog-only">
           Sunrise time indicator
           <input type="text" class="item-color item-color-normal" id="SunriseIndicatorColor1Picker" value="#AAAAAA">
         </label>
-        <label class="item">
+        <label class="item analog-only">
           Sunset time indicator
           <input type="text" class="item-color item-color-normal" id="SunsetIndicatorColor1Picker" value="#AAAAAA">
         </label>
@@ -251,16 +254,16 @@ button.item-button {
           Date
           <input type="text" class="item-color item-color-normal" id="TextDateColor2Picker" value="#FFFFFF">
         </label>
-        <label class="item">
+        <label class="item analog-only">
           Analog current time indicator<br>
           <small><small>Choose a color that contrasts with the date line, as it will pass behind for several hours around midnight</small></small>
           <input type="text" class="item-color item-color-normal" id="TimeIndicatorColor2Picker" value="#AAAA00">
         </label>
-        <label class="item">
+        <label class="item analog-only">
           Sunrise time indicator
           <input type="text" class="item-color item-color-normal" id="SunriseIndicatorColor2Picker" value="#AAAAAA">
         </label>
-        <label class="item">
+        <label class="item analog-only">
           Sunset time indicator
           <input type="text" class="item-color item-color-normal" id="SunsetIndicatorColor2Picker" value="#AAAAAA">
         </label>
@@ -295,16 +298,16 @@ button.item-button {
           Date
           <input type="text" class="item-color item-color-normal" id="TextDateColor3Picker" value="#FFFFFF">
         </label>
-        <label class="item">
+        <label class="item analog-only">
           Analog current time indicator<br>
           <small><small>Choose a color that contrasts with the date line, as it will pass behind for several hours around midnight</small></small>
           <input type="text" class="item-color item-color-normal" id="TimeIndicatorColor3Picker" value="#AAAA00">
         </label>
-        <label class="item">
+        <label class="item analog-only">
           Sunrise time indicator
           <input type="text" class="item-color item-color-normal" id="SunriseIndicatorColor3Picker" value="#AAAAAA">
         </label>
-        <label class="item">
+        <label class="item analog-only">
           Sunset time indicator
           <input type="text" class="item-color item-color-normal" id="SunsetIndicatorColor3Picker" value="#AAAAAA">
         </label>
@@ -479,6 +482,11 @@ function updateGPSSectionState() {
 
   // Disable actual input
   gpsCheckbox.disabled = gpsDisabled;
+
+  // Remove unnecessary color slection options when analog elements are disabled
+  gpsSection.classList.toggle('gps-disabled', gpsDisabled);
+  gpsCheckbox.disabled = gpsDisabled;
+  document.body.classList.toggle('analog-disabled', gpsDisabled);
 }
 
 function setupCollapsibleSections() {
