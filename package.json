@@ -1,0 +1,123 @@
+{
+    "author": "DC",
+    "dependencies": {},
+    "keywords": [],
+    "name": "text-watch-deluxe",
+    "pebble": {
+        "capabilities": [
+            "location",
+            "configurable"
+        ],
+        "displayName": "Text Watch Deluxe",
+        "enableMultiJS": false,
+        "messageKeys": {
+            "KEY_ANALOG_ELEMENTS": 20,
+            "KEY_BACKGROUND_COLOR": 6,
+            "KEY_DATE_ALIGN": 18,
+            "KEY_ENLARGE": 16,
+            "KEY_LATITUDE": 1,
+            "KEY_LONGITUDE": 2,
+            "KEY_NOGPS": 15,
+            "KEY_SINGLE_PREFIX_TYPE": 5,
+            "KEY_START_DEMO": 19,
+            "KEY_SUNRISE_INDICATOR_COLOR": 13,
+            "KEY_SUNSET_INDICATOR_COLOR": 14,
+            "KEY_TEXT_DATE_COLOR": 11,
+            "KEY_TEXT_DAY_COLOR": 10,
+            "KEY_TEXT_LINE_1_COLOR": 7,
+            "KEY_TEXT_LINE_2_COLOR": 8,
+            "KEY_TEXT_LINE_3_COLOR": 9,
+            "KEY_TIME_ALIGN": 17,
+            "KEY_TIME_INDICATOR_COLOR": 12,
+            "KEY_USEOLDDATA": 3,
+            "KEY_UTCH": 4
+        },
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "characterRegex": "[efghilnorstuvwx]",
+                    "file": "fonts/Gotham_Bold.ttf",
+                    "name": "gotham_bold_51",
+                    "targetPlatforms": [
+                        "emery"
+                    ],
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[efghilnorstuvwx]",
+                    "file": "fonts/Gotham_Bold.ttf",
+                    "name": "gotham_bold_56",
+                    "targetPlatforms": [
+                        "gabbro"
+                    ],
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[cdefghiklmnorstuvwxy']",
+                    "file": "fonts/Gotham_Light.ttf",
+                    "name": "gotham_light_51",
+                    "targetPlatforms": [
+                        "emery"
+                    ],
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[cdefghiklmnorstuvwxy']",
+                    "file": "fonts/Gotham_Light.ttf",
+                    "name": "gotham_light_56",
+                    "targetPlatforms": [
+                        "gabbro"
+                    ],
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[midnight]",
+                    "file": "fonts/Gotham_Light.ttf",
+                    "name": "gotham_light_46",
+                    "targetPlatforms": [
+                        "emery"
+                    ],
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[midnight]",
+                    "compatibility": "2.7",
+                    "file": "fonts/Gotham_Light.ttf",
+                    "name": "gotham_light_33",
+                    "targetPlatforms": [
+                        "basalt",
+                        "diorite",
+                        "flint"
+                    ],
+                    "type": "font"
+                },
+                {
+                    "characterRegex": "[abcdefghijlkmnoprstuvwyADFIJMNOSTW0123456789.,\"&() ]",
+                    "file": "fonts/Alt_Gothic_ATF_Demi.ttf",
+                    "name": "Alt_Gothic_ATF_Demi_32",
+                    "targetPlatforms": [
+                        "emery",
+                        "gabbro"
+                    ],
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk",
+            "diorite",
+            "emery",
+            "gabbro",
+            "flint"
+        ],
+        "uuid": "3fcc066a-6800-4eb0-82ef-6305ad73eb5d",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "2.0.0"
+}
