@@ -103,7 +103,7 @@ const char* const MONTHS[] = {
     "September ",
     "October ",
     "November ",
-    "Dececember ",
+    "December ",
 };
 #endif
 
